@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const nunjunks = require('nunjucks');
-
+const bodyparser = require('body-parser');
 
 // Routes loading
 var indexRouter = require('./routes/index');
@@ -37,12 +37,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: false}));
+
+//image등 외부요소 셋팅
+app.use('/image', express.static('public/images'));
 
 // function vipMiddleWare(req, res, next){
 //   console.log('vipMiddleWare middle ware');
 //   next();
 // } 
-
+// 라우팅은 마지막에
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);

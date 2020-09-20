@@ -31,4 +31,17 @@ router.get('/products', function(req, res) {
         online: 'express'
     }) // template밑의 위치, app.js에서 configure함
 });
+
+router.get('/products/write', (req, res) => {
+    
+    res.render('admin/write.html')
+});
+
+router.post('/products/write', (req, res)=>{
+    //res.send(req.body.name); // html에 있는 name으로 받을 수 있다.(name="name")
+    res.send(req.body); // html에 있는 name으로 받을 수 있다.(name="name")
+})
+
+
+
 module.exports = router;
