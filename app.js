@@ -3,14 +3,23 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const nunjunks = require('nunjucks');
 
+// Routes loading
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var adminRouter = require('./routes/admin');
+var contactsRouter = require('./routes/contacts');
 
 var app = express();
 var port = 3000;
 
-app.get('/fastcampus', (req, res) => {
+nunjunks.configure('template', {
+  autoescape: true,
+  express: app //위의 app객체 지정
+}) // template 폴더 지정
+
+app.get('/testlink', (req, res) => {
   res.send('hello express!@!@!@');
 });
 // app.listen(port, ()=>{
@@ -28,6 +37,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/admin', adminRouter);
+app.use('/contacts', contactsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
