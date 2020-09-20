@@ -43,6 +43,14 @@ app.use(bodyparser.urlencoded({extended: false}));
 //image등 외부요소 셋팅
 app.use('/image', express.static('public/images'));
 
+// global view setting
+// 표시되는 값은 base.html에서 이 값(isLogin)을 읽어서 표시해줌
+app.use((req, res, next)=>{
+  app.locals.isLogin = false;
+  app.locals.req_path = req.path; // express에서 현재 url을 변수로 담아 html에서 활용(버튼 활성화)
+  next();
+})
+
 // function vipMiddleWare(req, res, next){
 //   console.log('vipMiddleWare middle ware');
 //   next();
@@ -53,6 +61,9 @@ app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
 //app.use('/admin', vipMiddleWare, adminRouter);
 app.use('/contacts', contactsRouter);
+
+
+/* error는 내가 선언한 모든 것이 끝난 후에 선언해 준다. */
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
