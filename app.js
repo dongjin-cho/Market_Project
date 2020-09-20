@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const nunjunks = require('nunjucks');
 
+
 // Routes loading
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -29,15 +30,23 @@ app.get('/testlink', (req, res) => {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+// 미들웨어 셋팅, app.use자체가 미들웨어다.
+
+app.use(logger('dev')); // logger, 중간에 가로채서 GET, POST등 캐치가능
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// function vipMiddleWare(req, res, next){
+//   console.log('vipMiddleWare middle ware');
+//   next();
+// } 
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
+//app.use('/admin', vipMiddleWare, adminRouter);
 app.use('/contacts', contactsRouter);
 
 // catch 404 and forward to error handler
