@@ -63,8 +63,8 @@ class App {
 }
 
   setViewEngine (){
-      this.app.set('views', path.join(__dirname, 'views'));
-      this.app.set('view engine', 'jade');
+      // this.app.set('views', path.join(__dirname, 'views'));
+      // this.app.set('view engine', 'jade');
 
       nunjucks.configure('template', {
           autoescape: true,
