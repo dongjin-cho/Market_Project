@@ -4,19 +4,24 @@
 {% block content -%}
     <table class="table table-bordered table-hover">
         <tr>
-            <th>제목</th>
-            <th>작성일</th>
-            <th>삭제</th>
+            <th>제품 ID</th>
+            <th>카테고리</th>
+            <th>이름</th>
+            <th>QR Link</th>
+            <th>Image link</th>
+            <th>제품 설명</th>
         </tr>
 
-        {% for product in producs %}
+        {% for product in products %}
         <tr>
             <td>
-                <a href="/admin/products/detail/{{  product.id }}">{{ product.name }}</a>
+                <a href="/admin/products/detail/{{  product.product_id }}">{{ product.product_id }}</a>
             </td>
-            <td>
-                {{ product.createdAt }}
-            </td>
+            <td> {{ product.category_id }}</td>
+            <td> {{ product.name }}</td>
+            <td> {{ product.qrlink }}</td>
+            <td> {{ product.imglink }}</td>
+            <td> {{ product.description }}</td>
             <td>
                 <a href="/admin/products/delete/{{product.id}}" 
                 class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')">삭제</a>

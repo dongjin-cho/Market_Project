@@ -70,3 +70,36 @@ exports.get_products_delete = (req, res) => {
     })
 }
 
+exports.get_customers = ( _ , res) => {
+    models.customers.findAll({
+    }).then((customerList)=>{
+        console.log(customerList)
+        res.render('admin/customers.html', {customers: customerList})
+    }) // 이곳으로 productList보내기
+}
+
+exports.get_products = ( _ , res) => {
+    // res.render( 'admin/products.html' , 
+    //     { message : "hello" } // message 란 변수를 템플릿으로 내보낸다.
+    // );
+    models.products.findAll({
+
+    }).then((products)=>{
+        res.render('admin/products.html', {products: products})
+    }) // 이곳으로 productList보내기
+}
+
+exports.get_orders = ( _ , res) => {
+    models.orders.findAll({
+    }).then((orderList)=>{
+        //console.log(orderList)
+        res.render('admin/order.html', {orders: orderList})
+    }) // 이곳으로 productList보내기
+}
+
+exports.get_orders_detail = ( req, res ) => {
+    models.orders.findByPk(req.params.order_id).then( (order) => {
+        //res.send(product);
+        res.render('admin/detail.html', { order: order });  
+    });
+};

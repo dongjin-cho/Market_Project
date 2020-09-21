@@ -16,7 +16,7 @@ router.get('/', testMiddleWare, testMiddleWare2 , (req,res) => {
     res.send('admin app');
 });
 
-router.get('/products', ctrl.get_products );
+//router.get('/products', ctrl.get_products );
 
 router.get('/products/write', ctrl.get_products_write );
 
@@ -29,4 +29,11 @@ router.get('/products/edit/:id', ctrl.get_products_edit );
 router.post('/products/edit/:id', ctrl.post_products_edit );
 
 router.get('/products/delete/:id', ctrl.get_products_delete );
+
+// future connect 
+router.get('/customers', ctrl.get_customers );
+router.get('/products', ctrl.get_products );
+router.get('/orders', ctrl.get_orders );
+router.get('/orders/detail/:id', ctrl.get_orders_detail );
+
 module.exports = router;
