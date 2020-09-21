@@ -5,13 +5,17 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const nunjucks = require('nunjucks');
 const bodyparser = require('body-parser');
+const db = require('./models');
 
 /* 새로운 셋팅 - class로 바꿔서 정리 */
 
 class App {
 
   constructor () {
-      this.app = express();      
+      this.app = express(); 
+      
+      // db 접속
+      this.dbConnection();     
       // 뷰엔진 셋팅
       this.setViewEngine();
       // 미들웨어 셋팅
@@ -42,6 +46,21 @@ class App {
       
 
   }
+
+  dbConnection(){
+    // DB authentication
+    db.sequelize.authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .then(() => {
+        console.log('DB Sync complete.');
+        return db.sequelize.sync(); // table create sync
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
+}
 
   setViewEngine (){
       this.app.set('views', path.join(__dirname, 'views'));
