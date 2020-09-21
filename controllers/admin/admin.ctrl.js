@@ -1,3 +1,4 @@
+const db = require('../../models');
 const models = require('../../models');
 
 exports.get_products = ( _ , res) => {
@@ -38,3 +39,34 @@ exports.get_products_detail = ( req, res ) => {
         res.render('admin/detail.html', { product: product });  
     });
 };
+
+exports.get_products_edit = (req, res) => {
+    models.Products.findByPk(req.params.id).then((product)=>{
+        res.render('admin/write.html', {product})
+    })
+}
+
+exports.post_products_edit = (req, res) =>{
+    models.Products.update({
+        //data
+        name: req.body.name,
+        price: req.body.price,
+        description: req.body.description
+    },{
+        //condition
+        where: {id: req.params.id}
+    }).then(()=>{
+        res.redirect('/admin/products/detail/'+req.params.id);
+    })
+}
+
+exports.get_products_delete = (req, res) => {
+    models.Products.destroy({
+        where:{
+            id: req.params.id
+        }
+    }).then(()=>{
+        res.redirect('/admin/products')
+    })
+}
+
