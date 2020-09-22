@@ -98,8 +98,10 @@ exports.get_orders = ( _ , res) => {
 }
 
 exports.get_orders_detail = ( req, res ) => {
-    models.orders.findByPk(req.params.order_id).then( (order) => {
+    models.order_details.findAll({
+        where: { order_id : req.params.id}
+    }).then( (order_details) => {
         //res.send(product);
-        res.render('admin/detail.html', { order: order });  
+        res.render('admin/order_detail.html', { order_details: order_details });  
     });
 };
