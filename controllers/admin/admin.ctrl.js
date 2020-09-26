@@ -74,6 +74,7 @@ exports.get_customers = ( _ , res) => {
     models.customers.findAll({
     }).then((customerList)=>{
         console.log(customerList)
+        //res.send(customerList)
         res.render('admin/customers.html', {customers: customerList})
     }) // 이곳으로 productList보내기
 }
