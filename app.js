@@ -62,7 +62,6 @@ class App {
         console.error('Unable to connect to the database:', err);
     });
 }
-
   setViewEngine (){
       // this.app.set('views', path.join(__dirname, 'views'));
       // this.app.set('view engine', 'jade');
@@ -72,7 +71,6 @@ class App {
           express: this.app//위의 app객체 지정
        }) // template 폴더 지정
   }
-
 
   setStatic (){
       //this.app.use('/uploads', express.static('uploads'));
