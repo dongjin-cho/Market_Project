@@ -9,6 +9,7 @@ const db = require('./models');
 
 /* 새로운 셋팅 - class로 바꿔서 정리 */
 
+
 class App {
 
   constructor () {
