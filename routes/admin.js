@@ -42,6 +42,11 @@ router.post('/products/write', (req, res)=>{
     res.send(req.body); // html에 있는 name으로 받을 수 있다.(name="name")
 })
 
+router.post('/customers', (req, res)=>{
+    console.log('test log post');
+    console.log('test log post: '+ req.body);
+    res.send(req.body); // html에 있는 name으로 받을 수 있다.(name="name")
+})
 
 
 module.exports = router;

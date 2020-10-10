@@ -32,6 +32,9 @@ router.get('/products/delete/:id', ctrl.get_products_delete );
 
 // future connect 
 router.get('/customers', ctrl.get_customers );
+router.post('/customers', ctrl.post_customers );
+router.get('/customers/:id', ctrl.get_customers_edit );
+router.post('/customers/:id', ctrl.post_customers_edit );
 router.get('/products', ctrl.get_products );
 router.get('/orders', ctrl.get_orders );
 router.get('/orders/detail/:id', ctrl.get_orders_detail );

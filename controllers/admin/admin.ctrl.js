@@ -73,10 +73,47 @@ exports.get_products_delete = (req, res) => {
 exports.get_customers = ( _ , res) => {
     models.customers.findAll({
     }).then((customerList)=>{
-        console.log(customerList)
+        //console.log(customerList)
         //res.send(customerList)
-        res.render('admin/customers.html', {customers: customerList})
+        
+        //HTML Return
+        //res.render('admin/customers.html', {customers: customerList})
+
+        //JSON Return
+        res.json(customerList);
     }) // 이곳으로 productList보내기
+}
+
+exports.post_customers = ( req , res ) => {
+    
+    console.log('body =' + req.body);
+    models.customers.create(req.body).then( () => {
+        console.log('body =' +req.body);
+        res.json(req.body);
+    });   
+} 
+exports.get_customers_edit = (req, res) => {
+    models.customers.findByPk(req.params.id).then((customer)=>{
+        res.json(customer);
+    })
+}
+
+exports.post_customers_edit = (req, res) =>{
+    models.customers.update({
+        //data
+        name: req.body.name,
+        password: req.body.password,
+        email: req.body.email,
+        birthdate: req.body.birthdate,
+        phone: req.body.phone,
+        address: req.body.address,
+        createdate: req.body.createdate
+    },{
+        //condition
+        where: {customer_id: req.params.id}
+    }).then(()=>{
+        res.json(req.body);
+    })
 }
 
 exports.get_products = ( _ , res) => {
