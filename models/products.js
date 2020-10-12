@@ -4,16 +4,27 @@ module.exports = (sequelize, DataTypes) => {
     const products = sequelize.define('products',
         {
             product_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-            category_id : { type: DataTypes.INTEGER },
-            name : { type: DataTypes.STRING },
-            qrlink : { type: DataTypes.STRING },
-            imglink : { type: DataTypes.STRING },
-            description : { type: DataTypes.TEXT },
-            createdAt : { type: DataTypes.STRING },
-            updatedAt : { type: DataTypes.STRING }
+            category : { type: DataTypes.INTEGER },
+            name : { type: DataTypes.CHAR },
+            retail_price : { type: DataTypes.INTEGER },
+            location : { type: DataTypes.CHAR },
+            description : { type: DataTypes.CHAR },
+            img_path : { type: DataTypes.CHAR },
             
-        }
+        } 
     );
+    products.associate = function (db){
+        products.belongsTo(db.providers, 
+            {foreignKey: 'provider_id', sourceKey:'provider_id'})
+        products.hasOne(db.notification_infos, 
+            {foreignKey: 'product_id', sourceKey:'product_id'})
+        products.hasMany(db.hashtag_lists, 
+            {foreignKey: 'product_id', sourceKey:'product_id'})
+        products.hasMany(db.product_orders, 
+            {foreignKey: 'product_id', sourceKey:'product_id'})
+        products.hasMany(db.provider_handles, 
+            {foreignKey: 'product_id', sourceKey:'product_id'})
+    }
     return products;
 }
 

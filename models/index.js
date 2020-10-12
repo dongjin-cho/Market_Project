@@ -35,6 +35,7 @@ fs.readdirSync(__dirname)
 
 Object.keys(db).forEach(modelName => {
     if("associate" in db[modelName]){
+        console.log(modelName + ' in for each');
         db[modelName].associate(db); // 모델간의 관계도
     }
 });
