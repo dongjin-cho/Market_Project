@@ -17,18 +17,18 @@ exports.post_customers = ( req , res ) => {
         where: { sns_id: req.params.id}
     }).then((customer)=>{
         if (customer){
+            
             res.json('duplicated');
         }
         else{
-            res.json(customer);
+            models.customers.create(req.body).then( () => {
+                res.json(req.body);
+            });   
         }
         
     })
 
-    models.customers.create(req.body).then( () => {
-        
-        res.json(req.body);
-    });   
+    
 } 
 exports.get_customers_edit = (req, res) => {
     models.customers.findByPk(req.params.id).then((customer)=>{
