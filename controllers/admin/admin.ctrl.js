@@ -18,7 +18,7 @@ exports.post_customers = ( req , res ) => {
     }).then((customer)=>{
         if (customer){
             
-            res.json('duplicated');
+            res.json('{"ret":"sns_id is duplicated"}');
         }
         else{
             models.customers.create(req.body).then( () => {
