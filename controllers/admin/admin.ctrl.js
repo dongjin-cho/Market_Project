@@ -444,6 +444,16 @@ exports.post_provider_handles_edit = (req, res) =>{
     })
 }
 
+// sns_id 
+
+exports.get_customers_sns_edit = (req, res) => {
+    models.customers.findOne({
+        where: { sns_id: req.params.id}
+    }).then((customer)=>{
+        res.json(customer);
+    })
+}
+
 // old
 /*
 exports.get_products = ( _ , res) => {

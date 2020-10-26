@@ -77,6 +77,9 @@ router.post('/provider_handles', ctrl.post_provider_handles );
 router.get('/provider_handles/:id', ctrl.get_provider_handles_edit );
 router.post('/provider_handles/:id', ctrl.post_provider_handles_edit );
 
+//sns_id 구현
+router.get('/customers/sns_id/:id', ctrl.get_customers_sns_edit );
+
 module.exports = router;
 console.log('Routing success');
 
