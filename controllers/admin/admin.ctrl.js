@@ -13,9 +13,20 @@ exports.get_customers = ( _ , res) => {
 
 exports.post_customers = ( req , res ) => {
     
-    console.log('body =' + req.body);
+    models.customers.findOne({
+        where: { sns_id: req.params.id}
+    }).then((customer)=>{
+        if (!customer){
+            res.json('duplicated');
+        }
+        else{
+            res.json(customer);
+        }
+        
+    })
+
     models.customers.create(req.body).then( () => {
-        console.log('body =' +req.body);
+        
         res.json(req.body);
     });   
 } 
