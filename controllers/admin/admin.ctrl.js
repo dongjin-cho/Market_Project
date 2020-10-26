@@ -16,7 +16,7 @@ exports.post_customers = ( req , res ) => {
     models.customers.findOne({
         where: { sns_id: req.params.id}
     }).then((customer)=>{
-        if (!customer){
+        if (customer){
             res.json('duplicated');
         }
         else{
