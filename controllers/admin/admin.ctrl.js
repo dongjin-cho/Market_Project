@@ -14,11 +14,11 @@ exports.get_customers = ( _ , res) => {
 exports.post_customers = ( req , res ) => {
     
     models.customers.findOne({
-        where: { sns_id: req.params.id}
+        where: { sns_id: req.body.sns_id}
     }).then((customer)=>{
         if (customer){
             
-            res.json('{"ret":"sns_id is duplicated"}');
+            res.json('sns_id is duplicated');
         }
         else{
             models.customers.create(req.body).then( () => {
