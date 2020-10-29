@@ -44,7 +44,9 @@ exports.post_customers_edit = (req, res) =>{
         email: req.body.email,
         birthdate: req.body.birthdate,
         phone: req.body.phone,
-        address: req.body.address,
+        sns_id: req.body.sns_id,
+        post_code: req.body.post_code,
+        detailed_address: req.body.detailed_address,
         createdate: req.body.createdate
     },{
         //condition
