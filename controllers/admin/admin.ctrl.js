@@ -46,6 +46,7 @@ exports.post_customers_edit = (req, res) =>{
         phone: req.body.phone,
         sns_id: req.body.sns_id,
         post_code: req.body.post_code,
+        address: req.body.address,
         detailed_address: req.body.detailed_address,
         createdate: req.body.createdate
     },{
