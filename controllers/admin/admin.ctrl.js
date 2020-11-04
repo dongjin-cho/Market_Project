@@ -177,7 +177,7 @@ exports.post_purchases = ( req , res ) => {
     console.log('body =' + req.body);
     models.purchases.create(req.body).then( () => {
         console.log('body =' +req.body);
-        res.json(req.body);
+        res.json(req.body.cart_id);
     });   
 } 
 exports.get_purchases_edit = (req, res) => {
@@ -195,6 +195,7 @@ exports.post_purchases_edit = (req, res) =>{
         delivery_option: req.body.delivery_option,
         purchase_status: req.body.purchase_status,
         order_timestamp: req.body.order_timestamp,
+        delivery_timestamp: req.body.delivery_timestamp,
     },{
         //condition
         where: {purchase_id: req.params.id}

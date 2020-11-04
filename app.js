@@ -12,106 +12,110 @@ const db = require('./models');
 
 class App {
 
-  constructor () {
-      this.app = express(); 
-      
-      // db 접속
-      this.dbConnection();     
-      // 뷰엔진 셋팅
-      this.setViewEngine();
-      // 미들웨어 셋팅
-      this.setMiddleWare();
-      // 정적 디렉토리 추가
-      this.setStatic();
-      // 로컬 변수
-      this.setLocals();
-      // 라우팅
-      this.getRouting();
-      // 404 페이지를 찾을수가 없음
-      this.status404();
-      // 에러처리
-      this.errorHandler();
-  }
+    constructor() {
+        this.app = express();
+
+        // db 접속
+        this.dbConnection();
+        // 뷰엔진 셋팅
+        this.setViewEngine();
+        // 미들웨어 셋팅
+        this.setMiddleWare();
+        // 정적 디렉토리 추가
+        this.setStatic();
+        // 로컬 변수
+        this.setLocals();
+        // 라우팅
+        this.getRouting();
+        // 404 페이지를 찾을수가 없음
+        this.status404();
+        // 에러처리
+        this.errorHandler();
+    }
 
 
-  setMiddleWare (){
-      
-      // 미들웨어 셋팅
-      this.app.use(logger('dev'));
-      this.app.use(bodyparser.json());
-      this.app.use(bodyparser.urlencoded({ extended: false }));
-      this.app.use(cookieParser());
-      this.app.use(express.json());
-      this.app.use(express.urlencoded({ extended: false }));
-      this.app.use(express.static(path.join(__dirname, 'public')));
-      
+    setMiddleWare() {
 
-  }
+        // 미들웨어 셋팅
+        this.app.use(logger('dev'));
+        this.app.use(bodyparser.json());
+        this.app.use(bodyparser.urlencoded({
+            extended: false
+        }));
+        this.app.use(cookieParser());
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({
+            extended: false
+        }));
+        this.app.use(express.static(path.join(__dirname, 'public')));
 
-  dbConnection(){
-    // DB authentication
-    db.sequelize.authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .then(() => {
-        console.log('DB Sync complete.');
-        return db.sequelize.sync(); // table create sync
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
-}
-  setViewEngine (){
-      // this.app.set('views', path.join(__dirname, 'views'));
-      // this.app.set('view engine', 'jade');
 
-      nunjucks.configure('template', {
-          autoescape: true,
-          express: this.app//위의 app객체 지정
-       }) // template 폴더 지정
-  }
+    }
 
-  setStatic (){
-      //this.app.use('/uploads', express.static('uploads'));
-      this.app.use(express.static(path.join(__dirname, 'public')));
-      this.app.use('/image', express.static('public/images'));
-  }
+    dbConnection() {
+        // DB authentication
+        db.sequelize.authenticate()
+            .then(() => {
+                console.log('Connection has been established successfully.');
+            })
+            .then(() => {
+                console.log('DB Sync complete.');
+                return db.sequelize.sync(); // table create sync
+            })
+            .catch(err => {
+                console.error('Unable to connect to the database:', err);
+            });
+    }
+    setViewEngine() {
+        // this.app.set('views', path.join(__dirname, 'views'));
+        // this.app.set('view engine', 'jade');
 
-  setLocals(){
+        nunjucks.configure('template', {
+            autoescape: true,
+            express: this.app //위의 app객체 지정
+        }) // template 폴더 지정
+    }
 
-      // 템플릿 변수
-      this.app.use( (req, res, next) => {
-          this.app.locals.isLogin = true;
-          this.app.locals.req_path = req.path;
-          next();
-      });
-      // express에서 현재 url을 변수로 담아 html에서 활용(버튼 활성화)
-  }
+    setStatic() {
+        //this.app.use('/uploads', express.static('uploads'));
+        this.app.use(express.static(path.join(__dirname, 'public')));
+        this.app.use('/image', express.static('public/images'));
+    }
 
-  getRouting (){
-      this.app.use(require('./controllers'))
-  }
+    setLocals() {
 
-  status404() {        
-      this.app.use(function(req, res, next) {
-        next(createError(404));
-      });
-  }
+        // 템플릿 변수
+        this.app.use((req, res, next) => {
+            this.app.locals.isLogin = true;
+            this.app.locals.req_path = req.path;
+            next();
+        });
+        // express에서 현재 url을 변수로 담아 html에서 활용(버튼 활성화)
+    }
 
-  errorHandler() {
+    getRouting() {
+        this.app.use(require('./controllers'))
+    }
 
-      this.app.use(function(err, req, res, next) {
-        // set locals, only providing error in development
-        res.locals.message = err.message;
-        res.locals.error = req.app.get('env') === 'development' ? err : {};
-      
-        // render the error page
-        res.status(err.status || 500);
-        res.render('error');
-      });
-  
-  }
+    status404() {
+        this.app.use(function (req, res, next) {
+            next(createError(404));
+        });
+    }
+
+    errorHandler() {
+
+        this.app.use(function (err, req, res, next) {
+            // set locals, only providing error in development
+            res.locals.message = err.message;
+            res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+            // render the error page
+            res.status(err.status || 500);
+            res.render('error');
+        });
+
+    }
 
 }
 
