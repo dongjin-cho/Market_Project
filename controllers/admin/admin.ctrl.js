@@ -70,7 +70,7 @@ exports.post_carts = ( req , res ) => {
     console.log('body =' + req.body);
     models.carts.create(req.body).then( () => {
         console.log('body =' +req.body);
-        res.json(req.body);
+        res.json(req.body.cart_id);
     });   
 } 
 exports.get_carts_edit = (req, res) => {
