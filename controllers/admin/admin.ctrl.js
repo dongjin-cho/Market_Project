@@ -143,10 +143,12 @@ exports.get_cart_items = ( _ , res) => {
 exports.post_cart_items = ( req , res ) => {
     
     console.log('body =' + req.body);
-    models.cart_items.create(req.body).then( () => {
-        console.log('body =' +req.body);
-        res.json(req.body);
-    });   
+    models.cart_items.count().then(amount =>{
+        models.cart_items.create(req.body).then( () => {
+            console.log('body =' +req.body);
+            res.json(amount+1);
+        });
+    }); 
 } 
 exports.get_cart_items_edit = (req, res) => {
     models.cart_items.findByPk(req.params.id).then((cart_item)=>{
