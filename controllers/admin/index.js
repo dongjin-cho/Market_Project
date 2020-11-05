@@ -37,6 +37,9 @@ router.post('/cart_items', ctrl.post_cart_items );
 router.get('/cart_items/:id', ctrl.get_cart_items_edit );
 router.post('/cart_items/:id', ctrl.post_cart_items_edit );
 
+// cart_id, product_id로 cart_item_id return
+router.get('/cart_items/:cart_id/:product_id', ctrl.get_cart_items_cartid_productid );
+
 router.get('/purchases', ctrl.get_purchases );
 router.post('/purchases', ctrl.post_purchases );
 router.get('/purchases/:id', ctrl.get_purchases_edit );

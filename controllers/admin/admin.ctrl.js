@@ -170,6 +170,16 @@ exports.post_cart_items_edit = (req, res) =>{
     })
 }
 
+exports.get_cart_items_cartid_productid = (req, res) => {
+    models.cart_items.findOne({
+        where: { cart_id: req.params.cart_id,
+        product_id: req.params.product_id}
+    }).then((cart_item)=>{
+        res.json(cart_item.cart_item_id);
+    })
+}
+
+
 // purchases table
 exports.get_purchases = ( _ , res) => {
     models.purchases.findAll({
