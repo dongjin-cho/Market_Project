@@ -179,6 +179,14 @@ exports.get_cart_items_cartid_productid = (req, res) => {
     })
 }
 
+exports.get_cart_items_cartid = (req, res) => {
+    models.cart_items.findAll({
+        where: { cart_id: req.params.cart_id
+        }
+    }).then((cart_itemList)=>{
+        res.json(cart_itemList);
+    })
+}
 
 // purchases table
 exports.get_purchases = ( _ , res) => {
