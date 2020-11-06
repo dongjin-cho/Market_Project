@@ -87,11 +87,13 @@ router.post('/provider_handles/:id', ctrl.post_provider_handles_edit );
 //sns_id 구현
 router.get('/customers/sns_id/:id', ctrl.get_customers_sns_edit );
 
+//image 전송
+router.get('/img', ctrl.get_img );
+
+
 module.exports = router;
 console.log('Routing success');
 
-//image 전송
-router.get('/img', ctrl.get_img );
 
 //router.get('/products', ctrl.get_products );
 /*

@@ -504,16 +504,11 @@ exports.get_customers_sns_edit = (req, res) => {
 
 // cart_items table
 exports.get_img = ( req , res) => {
-    console.log('req is on')
-    fs.readFileSync('onion.jpeg', function(err, data){
-        console.log('read file')
-        
+    
+    fs.readFile("controllers/admin/onion.jpeg", function(err, data){
         res.writeHead(200, { "Context-Type": "image/jpg" });
-        console.log('write head done')
-        res.write(data);   //본문을 만들고
-        console.log('write data done')
-        res.end();  //클라이언트에게 응답을 전송한다
-        console.log('write end done')
+        res.end(data);  //클라이언트에게 응답을 전송한다
+    
     });
 }
 
