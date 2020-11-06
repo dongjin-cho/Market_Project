@@ -1,6 +1,6 @@
 const db = require('../../models');
 const models = require('../../models');
-
+const fs = require('fs');
 
 // future coonect
 // customers table
@@ -218,6 +218,15 @@ exports.post_purchases_edit = (req, res) =>{
     }).then(()=>{
         res.json(req.body);
     })
+}
+
+// customer_id로 purchase list가져오기
+exports.get_purchases_customer = ( req , res) => {
+    models.purchases.findAll({
+        where: {customer_id: req.params.customer_id}
+    }).then((purchaseList)=>{
+        res.json(purchaseList);
+    }) // 이곳으로 productList보내기
 }
 
 // products table
@@ -483,6 +492,21 @@ exports.get_customers_sns_edit = (req, res) => {
     }).then((customer)=>{
         res.json(customer);
     })
+}
+
+// cart_items table
+exports.get_img = ( req , res) => {
+    console.log('req is on')
+    fs.readFileSync('onion.jpeg', function(err, data){
+        console.log('read file')
+        
+        res.writeHead(200, { "Context-Type": "image/jpg" });
+        console.log('write head done')
+        res.write(data);   //본문을 만들고
+        console.log('write data done')
+        res.end();  //클라이언트에게 응답을 전송한다
+        console.log('write end done')
+    });
 }
 
 // old

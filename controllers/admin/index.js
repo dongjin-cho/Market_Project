@@ -44,6 +44,9 @@ router.get('/purchases', ctrl.get_purchases );
 router.post('/purchases', ctrl.post_purchases );
 router.get('/purchases/:id', ctrl.get_purchases_edit );
 router.post('/purchases/:id', ctrl.post_purchases_edit );
+//customer id 로 구매내역 가져오기
+router.get('/purchases/customer/:customer_id', ctrl.get_purchases_customer );
+
 
 router.get('/products', ctrl.get_products );
 router.post('/products', ctrl.post_products );
@@ -85,6 +88,9 @@ router.get('/customers/sns_id/:id', ctrl.get_customers_sns_edit );
 
 module.exports = router;
 console.log('Routing success');
+
+//image 전송
+router.get('/img', ctrl.get_img );
 
 //router.get('/products', ctrl.get_products );
 /*
