@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Farm</title>
+  <link rel="stylesheet" href="streaming.css">
+  <script src="https://player.live-video.net/1.1.2/amazon-ivs-player.min.js"></script>
+</head>
+
+<body>
+  <div class="v-box">
+    <video id="video-player" playsinline></video>
+    <script>
+      const PLAYBACK_URL =
+        'https://9f5bdf295a5c.us-east-1.playback.live-video.net/api/video/v1/us-east-1.211830211923.channel.Ol9by2oxsytI.m3u8'
+      if (IVSPlayer.isPlayerSupported) {
+        const player = IVSPlayer.create();
+        player.attachHTMLVideoElement(document.getElementById('video-player'));
+        player.load(PLAYBACK_URL);
+        player.play();
+      }
+    </script>
+  </div>
+  <div class="t-box">
+    <h1>Farm Streaming</h1>
+  </div>
+</body>
+</html>

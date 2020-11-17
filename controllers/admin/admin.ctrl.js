@@ -534,6 +534,12 @@ exports.get_img = (req, res) => {
     });
 }
 
+// get streming
+exports.get_streaming = (req, res) => {
+    res.sendFile(path("controllers/admin/streaming/testStreaming/streaming.html"));
+}
+
+
 // old
 /*
 exports.get_products = ( _ , res) => {
