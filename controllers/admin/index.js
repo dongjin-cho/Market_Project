@@ -93,7 +93,7 @@ router.get('/customers/sns_id/:id', ctrl.get_customers_sns_edit);
 router.get('/img', ctrl.get_img);
 
 // streaming url
-router.get('/stremaing', ctrl.get_streaming);
+router.get('/streaming', ctrl.get_streaming);
 
 module.exports = router;
 console.log('Routing success');
