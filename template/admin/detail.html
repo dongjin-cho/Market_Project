@@ -8,16 +8,18 @@
         </div>
         <div class="panel-body">
             <div style="padding-bottom: 10px">
-                작성일 : {{ product.createdAt }}
+                createdAt : {{ product.createdAt }}
             </div>
 
-            {{ product.description }}
+            {{ product.description }}<br>
+            {{ product.img_path }}<br>
+            {{ product.retail_price }}<br>
 
         </div>
     </div>
 
-    <a href="/admin/products" class="btn btn-default">목록으로</a>
-    <a href="/admin/products/edit/{{ product.id }}" class="btn btn-primary">수정</a>
+    <a href="/admin/admin_products" class="btn btn-default">목록으로</a>
+    <a href="/admin/admin_products/edit/{{ product.id }}" class="btn btn-primary">수정</a>
 
 
 

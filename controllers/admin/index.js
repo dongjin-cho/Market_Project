@@ -95,6 +95,13 @@ router.get('/img', ctrl.get_img);
 // streaming url
 router.get('/streaming', ctrl.get_streaming);
 
+// admin apge
+router.get('/admin_products', ctrl.get_admin_products);
+router.get('/admin_products_write', ctrl.get_admin_products_write);
+router.post('/admin_products_write', ctrl.post_admin_products_write);
+router.get('/admin_products/detail/:id', ctrl.get_admin_products_detail );
+router.get('/admin_products/edit/:id', ctrl.get_admin_products_edit );
+
 module.exports = router;
 console.log('Routing success');
 

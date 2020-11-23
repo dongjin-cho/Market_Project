@@ -540,7 +540,57 @@ exports.get_streaming = (req, res) => {
     res.render("admin/streaming.html");
 }
 
+/*
+ADMIN PAGE
+*/
 
+exports.get_admin_products = ( _ , res) => {
+    models.products.findAll({
+
+    }).then((products)=>{
+        res.render('admin/products.html', {products: products})
+    }) // 이곳으로 productList보내기
+}
+
+exports.get_admin_products_write = ( _ , res) => {
+    res.render( 'admin/write.html');
+}
+
+exports.post_admin_products_write = ( req , res ) => {
+    console.log(req.body);
+    // insert하는 두가지 방법
+    models.products.create({
+        category: req.body.category,
+        name: req.body.name,
+        provider_id: req.body.provider_id,
+        retail_price: req.body.retail_price,
+        location: req.body.location,
+        description: req.body.description,
+        img_path: req.body.img_path
+    }).then( () => {
+        res.redirect('/admin/admin_products');
+    });    
+} 
+
+exports.get_admin_products_detail = ( req, res ) => {
+    models.products.findByPk(req.params.id).then( (product) => {
+        //res.send(product);
+        res.render('admin/detail.html', { product: product });  
+    });
+};
+
+exports.get_admin_products_detail = ( req, res ) => {
+    models.products.findByPk(req.params.id).then( (product) => {
+        //res.send(product);
+        res.render('admin/detail.html', { product: product });  
+    });
+};
+
+exports.get_admin_products_edit = (req, res) => {
+    models.products.findByPk(req.params.id).then((product)=>{
+        res.render('admin/write.html', {product})
+    })
+}
 // old
 /*
 exports.get_products = ( _ , res) => {
