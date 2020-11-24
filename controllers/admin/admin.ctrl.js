@@ -2,29 +2,32 @@ const db = require('../../models');
 const models = require('../../models');
 const fs = require('fs');
 const jwt = require("jsonwebtoken");
-const {
-    decode
-} = require('punycode');
+const { decode } = require('punycode');
 const secretObj = process.env.JWT_SECRET
 // future coonect
 // customers table
 exports.get_customers = (req, res) => {
-
+    console.log('log1')
     var token = req.cookies.customer_t;
-    if (token) {
-        var decoded = jwt.verify(token, secretObj);
-
-        if (decoded) {
-            models.customers.findAll({}).then((customerList) => {
-                res.json(customerList);
-            }) // 이곳으로 productList보내기
-        }
+    if(token){
+        res.json({
+            message: 'failed'
+        })
+    }
+    var decoded = jwt.verify(token, secretObj);
+    console.log(decoded)
+    if(decoded){
+        models.customers.findAll({}).then((customerList) => {
+            res.json(customerList);
+        }) // 이곳으로 productList보내기
+    }
+    else{
+        res.json({
+            message: 'failed'
+        })
     }
 
-    res.json({
-        message: 'failed'
-    })
-
+    
 }
 
 exports.post_customers = (req, res) => {
@@ -561,21 +564,19 @@ exports.get_streaming = (req, res) => {
 ADMIN PAGE
 */
 
-exports.get_admin_products = (_, res) => {
+exports.get_admin_products = ( _ , res) => {
     models.products.findAll({
 
-    }).then((products) => {
-        res.render('admin/products.html', {
-            products: products
-        })
+    }).then((products)=>{
+        res.render('admin/products.html', {products: products})
     }) // 이곳으로 productList보내기
 }
 
-exports.get_admin_products_write = (_, res) => {
-    res.render('admin/write.html');
+exports.get_admin_products_write = ( _ , res) => {
+    res.render( 'admin/write.html');
 }
 
-exports.post_admin_products_write = (req, res) => {
+exports.post_admin_products_write = ( req , res ) => {
     console.log(req.body);
     // insert하는 두가지 방법
     models.products.create({
@@ -586,41 +587,37 @@ exports.post_admin_products_write = (req, res) => {
         location: req.body.location,
         description: req.body.description,
         img_path: req.body.img_path
-    }).then(() => {
+    }).then( () => {
         res.redirect('/admin/admin_products');
-    });
-}
+    });    
+} 
 
-exports.get_admin_products_detail = (req, res) => {
-    models.products.findByPk(req.params.id).then((product) => {
+exports.get_admin_products_detail = ( req, res ) => {
+    models.products.findByPk(req.params.id).then( (product) => {
         //res.send(product);
-        res.render('admin/detail.html', {
-            product: product
-        });
+        res.render('admin/detail.html', { product: product });  
     });
 };
 
 exports.get_admin_products_delete = (req, res) => {
     console.log('delete function')
     models.products.destroy({
-        where: {
+        where:{
             product_id: req.params.id
         }
-    }).then(() => {
+    }).then(()=>{
         res.redirect('/admin/admin_products')
     })
 }
 
 exports.get_admin_products_edit = (req, res) => {
-    models.products.findByPk(req.params.id).then((product) => {
-        res.render('admin/write.html', {
-            product
-        })
+    models.products.findByPk(req.params.id).then((product)=>{
+        res.render('admin/write.html', {product})
     })
 }
 
-exports.post_admin_products_edit = (req, res) => {
-
+exports.post_admin_products_edit = (req, res) =>{
+    
     models.products.update({
         //data
         category: req.body.category,
@@ -630,37 +627,33 @@ exports.post_admin_products_edit = (req, res) => {
         location: req.body.location,
         description: req.body.description,
         img_path: req.body.img_path
-    }, {
+    },{
         //condition
-        where: {
-            product_id: req.params.id
-        }
-    }).then(() => {
-        res.redirect('/admin/admin_products/detail/' + req.params.id);
+        where: {product_id: req.params.id}
+    }).then(()=>{
+        res.redirect('/admin/admin_products/detail/'+req.params.id);
     })
 }
 
 
 //customers
-exports.get_admin_customers = (_, res) => {
+exports.get_admin_customers = ( _ , res) => {
     models.customers.findAll({
 
-    }).then((customers) => {
-        res.render('admin/customers.html', {
-            customers: customers
-        })
+    }).then((customers)=>{
+        res.render('admin/customers.html', {customers: customers})
     }) // 이곳으로 productList보내기
 }
 
-exports.get_admin_customers_write = (_, res) => {
-    res.render('admin/customers_write.html');
+exports.get_admin_customers_write = ( _ , res) => {
+    res.render( 'admin/customers_write.html');
 }
 
-exports.post_admin_customers_write = (req, res) => {
+exports.post_admin_customers_write = ( req , res ) => {
     console.log(req.body);
     // insert하는 두가지 방법
     models.customers.create({
-
+        
         name: req.body.name,
         password: req.body.password,
         email: req.body.email,
@@ -671,41 +664,37 @@ exports.post_admin_customers_write = (req, res) => {
         sns_id: req.body.sns_id,
         post_code: req.body.post_code,
         detailed_address: req.body.detailed_address
-    }).then(() => {
+    }).then( () => {
         res.redirect('/admin/admin_customers');
-    });
-}
+    });    
+} 
 
-exports.get_admin_customers_detail = (req, res) => {
-    models.customers.findByPk(req.params.id).then((customers) => {
+exports.get_admin_customers_detail = ( req, res ) => {
+    models.customers.findByPk(req.params.id).then( (customers) => {
         //res.send(product);
-        res.render('admin/customers_detail.html', {
-            customers: customers
-        });
+        res.render('admin/customers_detail.html', { customers: customers });  
     });
 };
 
 exports.get_admin_customers_delete = (req, res) => {
     console.log('delete function')
     models.customers.destroy({
-        where: {
+        where:{
             customer_id: req.params.id
         }
-    }).then(() => {
+    }).then(()=>{
         res.redirect('/admin/admin_customers')
     })
 }
 
 exports.get_admin_customers_edit = (req, res) => {
-    models.customers.findByPk(req.params.id).then((customers) => {
-        res.render('admin/customers_write.html', {
-            customers
-        })
+    models.customers.findByPk(req.params.id).then((customers)=>{
+        res.render('admin/customers_write.html', {customers})
     })
 }
 
-exports.post_admin_customers_edit = (req, res) => {
-
+exports.post_admin_customers_edit = (req, res) =>{
+    
     models.customers.update({
         //data
         name: req.body.name,
@@ -718,44 +707,43 @@ exports.post_admin_customers_edit = (req, res) => {
         sns_id: req.body.sns_id,
         post_code: req.body.post_code,
         detailed_address: req.body.detailed_address
-    }, {
+    },{
         //condition
-        where: {
-            customer_id: req.params.id
-        }
-    }).then(() => {
-        res.redirect('/admin/admin_customers/detail/' + req.params.id);
+        where: {customer_id: req.params.id}
+    }).then(()=>{
+        res.redirect('/admin/admin_customers/detail/'+req.params.id);
     })
 }
 
 //login
-exports.get_login = (req, res) => {
+exports.get_login = (req, res) =>{
     console.log('get login')
-    var token = jwt.sign({
-            sns_id: req.body.sns_id
-        },
-        secretObj, {
-            expiresIn: '365d'
-        })
-
+    var token = jwt.sign({  
+        sns_id: req.body.sns_id
+    },
+    secretObj,{
+        expiresIn: '365d'
+    })
+    
     models.customers.findOne({
-        where: {
+        where:{
             sns_id: req.body.sns_id,
         }
-    }).then((customer) => {
-            if (customer.password == req.body.password) {
-
-                res.cookie('customer_t', token);
-                res.json({
-                    result: 'success',
-                    token: token
-                })
-            } else {
-                res.json({
-                    message: 'failed'
-                })
-            }
+    }).then((customer)=>{
+        if(customer.password == req.body.password){
+            
+            res.cookie('customer_t', token);
+            res.json({
+                result: 'success',
+                token: token
+            })
         }
+        else{
+            res.json({
+                message: 'failed'
+            })
+        }
+    }
 
     )
 }
