@@ -1204,6 +1204,8 @@ exports.get_login = (req, res) => {
             sns_id: req.body.sns_id,
         }
     }).then((customer) => {
+        console.log(customer.password )
+        console.log(req.body.password )
             if (customer.password == req.body.password) {
 
                 res.cookie('customer_t', token);
