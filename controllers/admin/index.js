@@ -96,6 +96,7 @@ router.get('/img', ctrl.get_img);
 router.get('/streaming', ctrl.get_streaming);
 
 // admin apge
+//products
 router.get('/admin_products', ctrl.get_admin_products);
 router.get('/admin_products_write', ctrl.get_admin_products_write);
 router.post('/admin_products_write', ctrl.post_admin_products_write);
@@ -104,6 +105,14 @@ router.get('/admin_products/edit/:id', ctrl.get_admin_products_edit );
 router.post('/admin_products/edit/:id', ctrl.post_admin_products_edit );
 router.get('/admin_products/delete/:id', ctrl.get_admin_products_delete );
 
+//customers
+router.get('/admin_customers', ctrl.get_admin_customers);
+router.get('/admin_customers_write', ctrl.get_admin_customers_write);
+router.post('/admin_customers_write', ctrl.post_admin_customers_write);
+router.get('/admin_customers/detail/:id', ctrl.get_admin_customers_detail );
+router.get('/admin_customers/edit/:id', ctrl.get_admin_customers_edit );
+router.post('/admin_customers/edit/:id', ctrl.post_admin_customers_edit );
+router.get('/admin_customers/delete/:id', ctrl.get_admin_customers_delete );
 
 // loading
 module.exports = router;

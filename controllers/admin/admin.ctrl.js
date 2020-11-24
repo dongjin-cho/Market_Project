@@ -614,6 +614,89 @@ exports.post_admin_products_edit = (req, res) =>{
         res.redirect('/admin/admin_products/detail/'+req.params.id);
     })
 }
+
+
+//customers
+exports.get_admin_customers = ( _ , res) => {
+    models.customers.findAll({
+
+    }).then((customers)=>{
+        res.render('admin/customers.html', {customers: customers})
+    }) // 이곳으로 productList보내기
+}
+
+exports.get_admin_customers_write = ( _ , res) => {
+    res.render( 'admin/customers_write.html');
+}
+
+exports.post_admin_customers_write = ( req , res ) => {
+    console.log(req.body);
+    // insert하는 두가지 방법
+    models.customers.create({
+        
+        name: req.body.name,
+        password: req.body.password,
+        email: req.body.email,
+        birthdate: req.body.birthdate,
+        phone: req.body.phone,
+        address: req.body.address,
+        createdate: req.body.createdate,
+        sns_id: req.body.sns_id,
+        post_code: req.body.post_code,
+        detailed_address: req.body.detailed_address
+    }).then( () => {
+        res.redirect('/admin/admin_customers');
+    });    
+} 
+
+exports.get_admin_customers_detail = ( req, res ) => {
+    models.customers.findByPk(req.params.id).then( (customers) => {
+        //res.send(product);
+        res.render('admin/customers_detail.html', { customers: customers });  
+    });
+};
+
+exports.get_admin_customers_delete = (req, res) => {
+    console.log('delete function')
+    models.customers.destroy({
+        where:{
+            customer_id: req.params.id
+        }
+    }).then(()=>{
+        res.redirect('/admin/admin_customers')
+    })
+}
+
+exports.get_admin_customers_edit = (req, res) => {
+    models.customers.findByPk(req.params.id).then((customers)=>{
+        res.render('admin/customers_write.html', {customers})
+    })
+}
+
+exports.post_admin_customers_edit = (req, res) =>{
+    
+    models.customers.update({
+        //data
+        name: req.body.name,
+        password: req.body.password,
+        email: req.body.email,
+        birthdate: req.body.birthdate,
+        phone: req.body.phone,
+        address: req.body.address,
+        createdate: req.body.createdate,
+        sns_id: req.body.sns_id,
+        post_code: req.body.post_code,
+        detailed_address: req.body.detailed_address
+    },{
+        //condition
+        where: {customer_id: req.params.id}
+    }).then(()=>{
+        res.redirect('/admin/admin_customers/detail/'+req.params.id);
+    })
+}
+
+
+
 // old
 /*
 exports.get_products = ( _ , res) => {
