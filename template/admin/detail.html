@@ -1,25 +1,54 @@
 {% set title = "관리자 : 상세페이지" %}
 {% extends "layout/base.html" %}
- 
+
 {% block content -%}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            {{ product.name }}
-        </div>
-        <div class="panel-body">
-            <div style="padding-bottom: 10px">
-                createdAt : {{ product.createdAt }}
-            </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {{ product.name }}
+    </div>
+    <div class="panel-body">
+        <div style="padding-bottom: 10px">
+            <table class="table">
+            <tr>
+                <td>Category</td>
+                <td>{{ product.category }}</td>
+            </tr>
+            <tr>
+                <td>provider_id</td>
+                <td>{{ product.provider_id }}</td>
+            </tr>
+            <tr>
+                <td>retail_price</td>
+                <td>{{ product.retail_price }}</td>
+            </tr>
+            <tr>
+                <td>location</td>
+                <td>{{ product.location }}</td>
+            </tr>
+            <tr>
+                <td>description</td>
+                <td>{{ product.description }}</td>
+            </tr>
+            <tr>
+                <td>img_path</td>
+                <td>{{ product.img_path }}</td>
+            </tr>
+            <tr>
+                <td>createAt</td>
+                <td>{{ product.createAt }}</td>
+            </tr>
 
-            {{ product.description }}<br>
-            {{ product.img_path }}<br>
-            {{ product.retail_price }}<br>
-
+            <tr>
+                <td>updateAt</td>
+                <td>{{ product.updateAt }}</td>
+            </tr>
+        </table>
         </div>
     </div>
+</div>
 
-    <a href="/admin/admin_products" class="btn btn-default">목록으로</a>
-    <a href="/admin/admin_products/edit/{{ product.id }}" class="btn btn-primary">수정</a>
+<a href="/admin/admin_products" class="btn btn-default">목록으로</a>
+<a href="/admin/admin_products/edit/{{ product.product_id }}" class="btn btn-primary">수정</a>
 
 
 

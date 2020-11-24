@@ -579,16 +579,39 @@ exports.get_admin_products_detail = ( req, res ) => {
     });
 };
 
-exports.get_admin_products_detail = ( req, res ) => {
-    models.products.findByPk(req.params.id).then( (product) => {
-        //res.send(product);
-        res.render('admin/detail.html', { product: product });  
-    });
-};
+exports.get_admin_products_delete = (req, res) => {
+    console.log('delete function')
+    models.products.destroy({
+        where:{
+            product_id: req.params.id
+        }
+    }).then(()=>{
+        res.redirect('/admin/admin_products')
+    })
+}
 
 exports.get_admin_products_edit = (req, res) => {
     models.products.findByPk(req.params.id).then((product)=>{
         res.render('admin/write.html', {product})
+    })
+}
+
+exports.post_admin_products_edit = (req, res) =>{
+    
+    models.products.update({
+        //data
+        category: req.body.category,
+        name: req.body.name,
+        provider_id: req.body.provider_id,
+        retail_price: req.body.retail_price,
+        location: req.body.location,
+        description: req.body.description,
+        img_path: req.body.img_path
+    },{
+        //condition
+        where: {product_id: req.params.id}
+    }).then(()=>{
+        res.redirect('/admin/admin_products/detail/'+req.params.id);
     })
 }
 // old

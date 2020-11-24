@@ -101,7 +101,11 @@ router.get('/admin_products_write', ctrl.get_admin_products_write);
 router.post('/admin_products_write', ctrl.post_admin_products_write);
 router.get('/admin_products/detail/:id', ctrl.get_admin_products_detail );
 router.get('/admin_products/edit/:id', ctrl.get_admin_products_edit );
+router.post('/admin_products/edit/:id', ctrl.post_admin_products_edit );
+router.get('/admin_products/delete/:id', ctrl.get_admin_products_delete );
 
+
+// loading
 module.exports = router;
 console.log('Routing success');
 
