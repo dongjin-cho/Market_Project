@@ -7,23 +7,22 @@ const secretObj = process.env.JWT_SECRET
 // future coonect
 // customers table
 exports.get_customers = (req, res) => {
-    console.log('log1')
+    
     var token = req.cookies.customer_t;
-    console.log('log1')
-    var decoded = jwt.verify(token, secretObj);
-    console.log('log1')
-    if(decoded){
-        models.customers.findAll({}).then((customerList) => {
-            res.json(customerList);
-        }) // 이곳으로 productList보내기
+    if(token){
+        var decoded = jwt.verify(token, secretObj);
+        
+        if(decoded){
+            models.customers.findAll({}).then((customerList) => {
+                res.json(customerList);
+            }) // 이곳으로 productList보내기
+        }
     }
     else{
         res.json({
             message: 'failed'
         })
-    }
-
-    
+    }   
 }
 
 exports.post_customers = (req, res) => {
