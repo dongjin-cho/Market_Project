@@ -1,13 +1,29 @@
 const db = require('../../models');
 const models = require('../../models');
 const fs = require('fs');
-
+const jwt = require("jsonwebtoken");
+const { decode } = require('punycode');
+const secretObj = process.env.JWT_SECRET
 // future coonect
 // customers table
-exports.get_customers = (_, res) => {
-    models.customers.findAll({}).then((customerList) => {
-        res.json(customerList);
-    }) // 이곳으로 productList보내기
+exports.get_customers = (req, res) => {
+    console.log('log1')
+    var token = req.cookies.customer_t;
+    console.log('log1')
+    var decoded = jwt.verify(token, secretObj);
+    console.log('log1')
+    if(decoded){
+        models.customers.findAll({}).then((customerList) => {
+            res.json(customerList);
+        }) // 이곳으로 productList보내기
+    }
+    else{
+        res.json({
+            message: 'failed'
+        })
+    }
+
+    
 }
 
 exports.post_customers = (req, res) => {
@@ -695,7 +711,38 @@ exports.post_admin_customers_edit = (req, res) =>{
     })
 }
 
+//login
+exports.get_login = (req, res) =>{
+    console.log('get login')
+    var token = jwt.sign({  
+        sns_id: req.body.sns_id
+    },
+    secretObj,{
+        expiresIn: '365d'
+    })
+    
+    models.customers.findOne({
+        where:{
+            sns_id: req.body.sns_id,
+        }
+    }).then((customer)=>{
+        if(customer.password == req.body.password){
+            
+            res.cookie('customer_t', token);
+            res.json({
+                result: 'success',
+                token: token
+            })
+        }
+        else{
+            res.json({
+                message: 'failed'
+            })
+        }
+    }
 
+    )
+}
 
 // old
 /*

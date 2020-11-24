@@ -114,6 +114,9 @@ router.get('/admin_customers/edit/:id', ctrl.get_admin_customers_edit );
 router.post('/admin_customers/edit/:id', ctrl.post_admin_customers_edit );
 router.get('/admin_customers/delete/:id', ctrl.get_admin_customers_delete );
 
+// login구현
+router.get('/login', ctrl.get_login);
+
 // loading
 module.exports = router;
 console.log('Routing success');
