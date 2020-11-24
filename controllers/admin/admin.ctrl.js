@@ -9,7 +9,7 @@ const secretObj = process.env.JWT_SECRET
 exports.get_customers = (req, res) => {
     console.log('log1')
     var token = req.cookies.customer_t;
-    if(token){
+    if(!token){
         res.json({
             message: 'failed'
         })
