@@ -973,6 +973,84 @@ exports.post_provider_handles_edit = (req, res) => {
     });
 }
 
+// customer_logs table
+exports.get_customer_logs = (_, res) => {
+    models.customer_logs.findAll({}).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    }); // 이곳으로 productList보내기
+}
+
+exports.post_customer_logs = (req, res) => {
+
+    console.log('body =' + req.body);
+    models.customer_logs.create(req.body).then(() => {
+        console.log('body =' + req.body);
+        res.json({
+            message: 'success',
+            result: req.body
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+exports.get_customer_logs_edit = (req, res) => {
+    models.customer_logs.findByPk(req.params.id).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+
+exports.post_customer_logs_edit = (req, res) => {
+    models.customer_logs.update({
+        //data
+        lat: req.body.lat,
+        lng: req.body.lng,
+        address: req.body.address,
+        logincnt: req.body.logincnt,
+        loginos: req.body.loginos,
+        appversion: req.body.appversion,
+        logindate: req.body.logindate,
+        customer_id: req.body.customer_id,
+    }, {
+        //condition
+        where: {
+            customer_log_id: req.params.id
+        }
+    }).then(() => {
+        res.json({
+            message: 'success',
+            result: req.body
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+
 // sns_id 
 
 exports.get_customers_sns_edit = (req, res) => {

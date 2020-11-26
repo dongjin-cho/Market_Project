@@ -103,6 +103,12 @@ router.post('/provider_handles', verify_token, ctrl.post_provider_handles);
 router.get('/provider_handles/:id', verify_token, ctrl.get_provider_handles_edit);
 router.post('/provider_handles/:id', verify_token, ctrl.post_provider_handles_edit);
 
+router.get('/customer_logs', verify_token, ctrl.get_customer_logs);
+router.post('/customer_logs', verify_token, ctrl.post_provider_handles);
+router.get('/customer_logs/:id', verify_token, ctrl.get_customer_logs_edit);
+router.post('/customer_logs/:id', verify_token, ctrl.post_customer_logs_edit);
+
+
 //sns_id 구현
 router.get('/customers/sns_id/:id', verify_token, ctrl.get_customers_sns_edit);
 
