@@ -36,9 +36,9 @@ router.get('/', verify_token, testMiddleWare2, (req, res) => {
 });
 
 // future connect 
-router.get('/customers', verify_token, ctrl.get_customers);
-router.post('/customers', verify_token, ctrl.post_customers);
-router.get('/customers/:id', verify_token, ctrl.get_customers_edit);
+router.get('/customers', ctrl.get_customers);
+router.post('/customers', verify_token,ctrl.post_customers);
+router.get('/customers/:id',  verify_token, ctrl.get_customers_edit);
 router.post('/customers/:id', verify_token, ctrl.post_customers_edit);
 
 router.get('/carts', verify_token, ctrl.get_carts);
@@ -132,7 +132,8 @@ router.post('/admin_customers/edit/:id', ctrl.post_admin_customers_edit );
 router.get('/admin_customers/delete/:id', ctrl.get_admin_customers_delete );
 
 // login구현
-router.get('/login', ctrl.get_login);
+
+router.post('/login', ctrl.post_login);
 
 // loading
 module.exports = router;

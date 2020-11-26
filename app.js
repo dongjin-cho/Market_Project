@@ -14,7 +14,6 @@ class App {
 
     constructor() {
         this.app = express();
-
         // db 접속
         this.dbConnection();
         // 뷰엔진 셋팅
@@ -25,10 +24,13 @@ class App {
         this.setStatic();
         // 로컬 변수
         this.setLocals();
+        
         // 라우팅
         this.getRouting();
+        
         // 404 페이지를 찾을수가 없음
         this.status404();
+        
         // 에러처리
         this.errorHandler();
     }

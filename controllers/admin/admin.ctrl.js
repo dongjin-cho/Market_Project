@@ -31,22 +31,22 @@ exports.get_customers = (req, res) => {
 
 exports.post_customers = (req, res) => {
 
-    models.customers.findOne({
-        where: {
-            sns_id: req.body.sns_id
+    models.customers.update({
+        name: req.body.name,
+        email: req.body.email,
+        gender: req.body.gender,
+        phone: req.body.phone,
+        birthdate: req.body.birthdate,},
+        {
+            where: {
+                sns_id: req.body.sns_id,
+                join_platform: req.body.join_platform
         }
-    }).then((customer) => {
-        if (customer) {
-
-            res.json('sns_id is duplicated');
-        } else {
-            models.customers.create(req.body).then(() => {
-                res.json({
-                    message: 'success',
-                    result: req.body
-                });
-            });
-        }
+    }).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
 
     }).catch(err => {
 
@@ -1190,39 +1190,52 @@ exports.post_admin_customers_edit = (req, res) => {
 }
 
 //login
-exports.get_login = (req, res) => {
-    console.log('get login')
+
+exports.post_login = (req, res) => {
+    console.log('post get login')
+    console.log('post get login')
+    console.log('post get login')
     var token = jwt.sign({
-            sns_id: req.body.sns_id
-        },
-        secretObj, {
-            expiresIn: '365d'
-        })
+        sns_id: req.body.sns_id
+    },
+    secretObj, {
+        expiresIn: '1000d'
+    })
 
     models.customers.findOne({
         where: {
             sns_id: req.body.sns_id,
+            join_platform: req.body.join_platform
         }
-    }).then((customer) => {
-        console.log(customer.password )
-        console.log(req.body.password )
-            if (true) {
-
-                res.cookie('customer_t', token);
+    }).then((result) => {
+        res.cookie('customer_t', token);
+        if (result) {
+            console.log('sns_id is duplicated')
+            res.json({
+                message: 'success',
+                existed: 'y',
+                token: token,
+                result
+            });
+        } else {
+            models.customers.create(req.body).then(() => {
                 res.json({
                     message: 'success',
-                    token: token
-                })
-            } else {
-                res.json({
-                    message: 'fail'
-                })
-            }
+                    existed: 'n',
+                    token: token,
+                    result: req.body
+                });
+            });
         }
+    }).catch(err => {
 
-    )
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+
 }
-
 // old
 /*
 exports.get_products = ( _ , res) => {
