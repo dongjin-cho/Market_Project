@@ -1035,7 +1035,7 @@ exports.post_customer_logs_edit = (req, res) => {
     }, {
         //condition
         where: {
-            customer_log_id: req.params.id
+            customer_id: req.params.id
         }
     }).then(() => {
         res.json({
