@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const {
     decode
 } = require('punycode');
+const { Sequelize } = require('../../models');
 const secretObj = process.env.JWT_SECRET
 // future coonect
 // customers table
@@ -155,6 +156,46 @@ exports.get_carts_edit = (req, res) => {
             message: 'fail'
         })
     });
+}
+
+exports.get_recent_carts = (req, res) => {
+    console.log('1')
+    models.carts.findAll({
+        attributes: ['cart_id'],
+        where: {
+            customer_id: req.body.customer_id,
+            cart_status: req.body.cart_status
+        }
+    }).then((cart) => {
+        console.log(JSON.parse(JSON.stringify(cart)))
+        models.cart_lists.findAll({
+            attributes: ['cart_item_id'],
+            where:{
+                cart_id: JSON.parse(JSON.stringify(cart))
+            }
+        }).then((cart_list)=>{
+            console.log(cart_list)
+            models.cart_items.findAll({
+                
+                where:{
+                    cart_item_id: JSON.parse(JSON.stringify(cart_list))
+                }
+            }).then((result)=>{
+                
+                res.json({
+                    message: 'success',
+                    result
+                });
+            })
+        })        
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+
 }
 
 exports.post_carts_edit = (req, res) => {
@@ -1296,12 +1337,12 @@ exports.post_login = (req, res) => {
                 result
             });
         } else {
-            models.customers.create(req.body).then(() => {
+            models.customers.create(req.body).then((result) => {
                 res.json({
                     message: 'success',
                     existed: 'n',
                     token: token,
-                    result: req.body
+                    result
                 });
             });
         }

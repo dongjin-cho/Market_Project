@@ -15,7 +15,7 @@ function verify_token(req, res, next) {
     }
 
     jwt.verify(token, secretObj, (err, decoded) => {
-        console.log(decoded)
+   
         if (!decoded) {
             return res.json({
                 message: 'fail',
@@ -46,6 +46,9 @@ router.post('/carts', verify_token, ctrl.post_carts);
 router.get('/carts/:id', verify_token, ctrl.get_carts_edit);
 router.post('/carts/:id', verify_token, ctrl.post_carts_edit);
 
+// cart_id fetch기능
+router.get('/carts_recent', verify_token, ctrl.get_recent_carts);
+
 router.get('/cart_lists', verify_token, ctrl.get_cart_lists);
 router.post('/cart_lists', verify_token, ctrl.post_cart_lists);
 router.get('/cart_lists/:id', verify_token, ctrl.get_cart_lists_edit);
@@ -64,6 +67,7 @@ router.get('/purchases', verify_token, ctrl.get_purchases);
 router.post('/purchases', verify_token, ctrl.post_purchases);
 router.get('/purchases/:id', verify_token, ctrl.get_purchases_edit);
 router.post('/purchases/:id', verify_token, ctrl.post_purchases_edit);
+
 //customer id 로 구매내역 가져오기
 router.get('/purchases/customer/:customer_id', verify_token, ctrl.get_purchases_customer);
 
