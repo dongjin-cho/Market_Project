@@ -8,6 +8,7 @@ const secretObj = process.env.JWT_SECRET
 
 function verify_token(req, res, next) {
     const token = req.cookies.customer_t;
+    
     if (!token) {
         return res.json({
             message: 'fail'
@@ -25,7 +26,26 @@ function verify_token(req, res, next) {
     })
     next();
 }
+function verify_token2(req, res, next) {
+    const token = req.headers.customer_t;
+    
+    if (!token) {
+        return res.json({
+            message: 'fail'
+        })
+    }
 
+    jwt.verify(token, secretObj, (err, decoded) => {
+   
+        if (!decoded) {
+            return res.json({
+                message: 'fail',
+                err: err
+            })
+        }
+    })
+    next();
+}
 function testMiddleWare2(req, res, next) {
     console.log('두번째 미들웨어');
     next();
@@ -72,7 +92,7 @@ router.post('/purchases/:id', verify_token, ctrl.post_purchases_edit);
 router.get('/purchases/customer/:customer_id', verify_token, ctrl.get_purchases_customer);
 
 
-router.get('/products', verify_token, ctrl.get_products);
+router.get('/products', verify_token2, ctrl.get_products);
 router.post('/products', verify_token, ctrl.post_products);
 router.get('/products/:id', verify_token, ctrl.get_products_edit);
 router.post('/products/:id', verify_token, ctrl.post_products_edit);
