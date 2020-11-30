@@ -6,27 +6,27 @@ const ctrl = require('./admin.ctrl');
 const jwt = require("jsonwebtoken");
 const secretObj = process.env.JWT_SECRET
 
-function verify_token(req, res, next) {
-    const token = req.cookies.customer_t;
+// function verify_token(req, res, next) {
+//     const token = req.cookies.customer_t;
     
-    if (!token) {
-        return res.json({
-            message: 'fail'
-        })
-    }
+//     if (!token) {
+//         return res.json({
+//             message: 'fail'
+//         })
+//     }
 
-    jwt.verify(token, secretObj, (err, decoded) => {
+//     jwt.verify(token, secretObj, (err, decoded) => {
    
-        if (!decoded) {
-            return res.json({
-                message: 'fail',
-                err: err
-            })
-        }
-    })
-    next();
-}
-function verify_token2(req, res, next) {
+//         if (!decoded) {
+//             return res.json({
+//                 message: 'fail',
+//                 err: err
+//             })
+//         }
+//     })
+//     next();
+// }
+function verify_token(req, res, next) {
     const token = req.headers.customer_t;
     
     if (!token) {
@@ -51,15 +51,15 @@ function testMiddleWare2(req, res, next) {
     next();
 }
 
-router.get('/', verify_token2, testMiddleWare2, (req, res) => {
+router.get('/', verify_token, testMiddleWare2, (req, res) => {
     res.send('admin app');
 });
 
 // future connect 
 router.get('/customers', ctrl.get_customers);
-router.post('/customers', verify_token2,ctrl.post_customers);
-router.get('/customers/:id',  verify_token2, ctrl.get_customers_edit);
-router.post('/customers/:id', verify_token2, ctrl.post_customers_edit);
+router.post('/customers', verify_token,ctrl.post_customers);
+router.get('/customers/:id',  verify_token, ctrl.get_customers_edit);
+router.post('/customers/:id', verify_token, ctrl.post_customers_edit);
 
 router.get('/carts', verify_token, ctrl.get_carts);
 router.post('/carts', verify_token, ctrl.post_carts);
@@ -92,10 +92,10 @@ router.post('/purchases/:id', verify_token, ctrl.post_purchases_edit);
 router.get('/purchases/customer/:customer_id', verify_token, ctrl.get_purchases_customer);
 
 
-router.get('/products', verify_token2, ctrl.get_products);
-router.post('/products', verify_token2, ctrl.post_products);
-router.get('/products/:id', verify_token2, ctrl.get_products_edit);
-router.post('/products/:id', verify_token2, ctrl.post_products_edit);
+router.get('/products', verify_token, ctrl.get_products);
+router.post('/products', verify_token, ctrl.post_products);
+router.get('/products/:id', verify_token, ctrl.get_products_edit);
+router.post('/products/:id', verify_token, ctrl.post_products_edit);
 
 router.get('/notification_infos', verify_token, ctrl.get_notification_infos);
 router.post('/notification_infos', verify_token, ctrl.post_notification_infos);
