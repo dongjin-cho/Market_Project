@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
             createdate : { type: DataTypes.DATE },
             post_code : { type: DataTypes.CHAR },
             detailed_address : { type: DataTypes.CHAR },
+            point : { type: DataTypes.INTEGER },
         },
     );    
     customers.associate = function (db){
