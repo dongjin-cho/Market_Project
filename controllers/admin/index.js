@@ -132,6 +132,17 @@ router.post('/customer_logs', verify_token, ctrl.post_customer_logs);
 router.get('/customer_logs/:id', verify_token, ctrl.get_customer_logs_edit);
 router.post('/customer_logs/:id', verify_token, ctrl.post_customer_logs_edit);
 
+router.get('/reviews', verify_token, ctrl.get_reviews);
+router.post('/reviews', verify_token, ctrl.post_reviews);
+router.get('/reviews/:id', verify_token, ctrl.get_reviews_edit);
+router.post('/reviews/:id', verify_token, ctrl.post_reviews_edit);
+router.get('/product_reviews/:id', verify_token, ctrl.get_product_review);
+
+router.get('/coupons', verify_token, ctrl.get_coupons);
+router.post('/coupons', verify_token, ctrl.post_coupons);
+router.get('/coupons/:id', verify_token, ctrl.get_coupons_edit);
+router.post('/coupons/:id', verify_token, ctrl.post_coupons_edit);
+router.get('/coupon_customer/:id', verify_token, ctrl.get_coupon_customer);
 
 //sns_id 구현
 router.get('/customers/sns_id/:id', verify_token, ctrl.get_customers_sns_edit);

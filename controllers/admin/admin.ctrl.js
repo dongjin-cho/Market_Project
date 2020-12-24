@@ -1092,6 +1092,193 @@ exports.post_customer_logs_edit = (req, res) => {
     });
 }
 
+// reveiws
+exports.get_reviews = (_, res) => {
+    models.reviews.findAll({}).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    }); // 이곳으로 productList보내기
+}
+
+exports.post_reviews = (req, res) => {
+
+    console.log('body =' + req.body);
+    models.reviews.create(req.body).then(() => {
+        console.log('body =' + req.body);
+        res.json({
+            message: 'success',
+            result: req.body
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+exports.get_reviews_edit = (req, res) => {
+    models.reviews.findByPk(req.params.id).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+
+exports.post_reviews_edit = (req, res) => {
+    models.reviews.update({
+        //data
+        customer_id: req.body.customer_id,
+        product_id: req.body.product_id,
+        rating: req.body.rating,
+        commment: req.body.commment,
+        img_link: req.body.img_link,
+        
+    }, {
+        //condition
+        where: {
+            review_id: req.params.id
+        }
+    }).then(() => {
+        res.json({
+            message: 'success',
+            result: req.body
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+
+exports.get_product_review = (req, res) => {
+    models.reviews.findAll({
+        where: {
+            product_id: req.params.id
+        }
+    }).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+
+// coupons
+
+exports.get_coupons = (_, res) => {
+    models.coupons.findAll({}).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    }); // 이곳으로 productList보내기
+}
+
+exports.post_coupons = (req, res) => {
+
+    console.log('body =' + req.body);
+    models.coupons.create(req.body).then(() => {
+        console.log('body =' + req.body);
+        res.json({
+            message: 'success',
+            result: req.body
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+exports.get_coupons_edit = (req, res) => {
+    models.coupons.findByPk(req.params.id).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+
+exports.post_coupons_edit = (req, res) => {
+    models.coupons.update({
+        //data
+        customer_id: req.body.customer_id,
+        type: req.body.type,
+        value: req.body.value,
+        expire_date: req.body.expire_date,        
+    }, {
+        //condition
+        where: {
+            coupon_id: req.params.id
+        }
+    }).then(() => {
+        res.json({
+            message: 'success',
+            result: req.body
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+
+exports.get_coupon_customer = (req, res) => {
+    models.reviews.findAll({
+        where: {
+            customer_id: req.params.id
+        }
+    }).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+
 // sns_id 
 
 exports.get_customers_sns_edit = (req, res) => {
