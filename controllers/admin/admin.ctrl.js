@@ -1369,7 +1369,7 @@ exports.get_admin_products = (_, res) => {
 }
 
 exports.get_admin_products_write = (_, res) => {
-    res.render('admin/write.html');
+    res.render('admin/product_write.html');
 }
 
 exports.post_admin_products_write = (req, res) => {
@@ -1378,11 +1378,20 @@ exports.post_admin_products_write = (req, res) => {
     models.products.create({
         category: req.body.category,
         name: req.body.name,
-        provider_id: req.body.provider_id,
         retail_price: req.body.retail_price,
         location: req.body.location,
         description: req.body.description,
-        img_path: req.body.img_path
+        img_path: req.body.img_path,
+        provider_id: req.body.provider_id,
+        sku: req.body.sku,
+        name_eng: req.body.name_eng,
+        type: req.body.type,
+        intro: req.body.intro,
+        measure_1: req.body.measure_1,
+        measure_2: req.body.measure_2,
+        storage_desc: req.body.storage_desc,
+        recipe: req.body.recipe,
+        nutrition: req.body.nutrition
     }).then(() => {
         res.redirect('/admin/admin_products');
     });
@@ -1410,7 +1419,7 @@ exports.get_admin_products_delete = (req, res) => {
 
 exports.get_admin_products_edit = (req, res) => {
     models.products.findByPk(req.params.id).then((product) => {
-        res.render('admin/write.html', {
+        res.render('admin/product_write.html', {
             product
         })
     })
@@ -1422,11 +1431,20 @@ exports.post_admin_products_edit = (req, res) => {
         //data
         category: req.body.category,
         name: req.body.name,
-        provider_id: req.body.provider_id,
         retail_price: req.body.retail_price,
         location: req.body.location,
         description: req.body.description,
-        img_path: req.body.img_path
+        img_path: req.body.img_path,
+        provider_id: req.body.provider_id,
+        sku: req.body.sku,
+        name_eng: req.body.name_eng,
+        type: req.body.type,
+        intro: req.body.intro,
+        measure_1: req.body.measure_1,
+        measure_2: req.body.measure_2,
+        storage_desc: req.body.storage_desc,
+        recipe: req.body.recipe,
+        nutrition: req.body.nutrition
     }, {
         //condition
         where: {

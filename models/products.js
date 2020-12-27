@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
             location : { type: DataTypes.CHAR },
             description : { type: DataTypes.CHAR },
             img_path : { type: DataTypes.CHAR },
+            sku : { type: DataTypes.CHAR },
+            name_eng : { type: DataTypes.CHAR },
             type : { type: DataTypes.CHAR },
             intro : { type: DataTypes.CHAR },
             measure_1 : { type: DataTypes.CHAR },
