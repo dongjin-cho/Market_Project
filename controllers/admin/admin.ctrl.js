@@ -175,9 +175,20 @@ exports.post_recent_carts = (req, res) => {
                 // cart_id: JSON.parse(JSON.stringify(cart))
             }
         }).then((cart_list)=>{
+            console.log(new Date(new Date() - 24 * 60 * 60 * 3000))
             models.cart_items.findAll({
+                
                 where:{
-                    [Sequelize.Op.or]: JSON.parse(JSON.stringify(cart_list))
+                    [Sequelize.Op.or]: JSON.parse(JSON.stringify(cart_list)),
+                    quantity: {
+                        [Sequelize.Op.ne]: 0
+                    },
+                    updatedAt: {
+                        [Sequelize.Op.lt]: new Date(),
+                        [Sequelize.Op.gt]: new Date(new Date() - 24 * 60 * 60 * 3000)
+                        
+                      }
+                    
                     // cart_item_id: JSON.parse(JSON.stringify(cart_list))
                 }
             }).then((result)=>{
