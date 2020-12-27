@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const {
     decode
 } = require('punycode');
-const { Sequelize } = require('../../models');
+const { Sequelize, sequelize } = require('../../models');
 const secretObj = process.env.JWT_SECRET
 // future coonect
 // customers table
@@ -158,7 +158,8 @@ exports.get_carts_edit = (req, res) => {
     });
 }
 
-exports.get_recent_carts = (req, res) => {
+exports.post_recent_carts = (req, res) => {
+    
     console.log('1')
     models.carts.findAll({
         attributes: ['cart_id'],
@@ -167,18 +168,17 @@ exports.get_recent_carts = (req, res) => {
             cart_status: req.body.cart_status
         }
     }).then((cart) => {
-        console.log(JSON.parse(JSON.stringify(cart)))
         models.cart_lists.findAll({
             attributes: ['cart_item_id'],
             where:{
-                cart_id: JSON.parse(JSON.stringify(cart))
+                [Sequelize.Op.or]: JSON.parse(JSON.stringify(cart))
+                // cart_id: JSON.parse(JSON.stringify(cart))
             }
         }).then((cart_list)=>{
-            console.log(cart_list)
             models.cart_items.findAll({
-                
                 where:{
-                    cart_item_id: JSON.parse(JSON.stringify(cart_list))
+                    [Sequelize.Op.or]: JSON.parse(JSON.stringify(cart_list))
+                    // cart_item_id: JSON.parse(JSON.stringify(cart_list))
                 }
             }).then((result)=>{
                 
@@ -196,6 +196,25 @@ exports.get_recent_carts = (req, res) => {
         })
     });
 
+}
+
+exports.get_one_carts = (req, res) => {
+    models.coupons.findAll({
+        where: {
+            customer_id: req.params.id
+        }
+    }).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
 }
 
 exports.post_carts_edit = (req, res) => {
@@ -1261,7 +1280,7 @@ exports.post_coupons_edit = (req, res) => {
 }
 
 exports.get_coupon_customer = (req, res) => {
-    models.reviews.findAll({
+    models.coupons.findAll({
         where: {
             customer_id: req.params.id
         }

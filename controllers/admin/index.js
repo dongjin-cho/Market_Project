@@ -67,7 +67,8 @@ router.get('/carts/:id', verify_token, ctrl.get_carts_edit);
 router.post('/carts/:id', verify_token, ctrl.post_carts_edit);
 
 // cart_id fetch기능
-router.get('/carts_recent', verify_token, ctrl.get_recent_carts);
+router.post('/carts_recent', verify_token, ctrl.post_recent_carts);
+router.get('/carts_recent/:id', verify_token, ctrl.get_one_carts);
 
 router.get('/cart_lists', verify_token, ctrl.get_cart_lists);
 router.post('/cart_lists', verify_token, ctrl.post_cart_lists);
