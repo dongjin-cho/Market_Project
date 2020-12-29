@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             review_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
             customer_id : { type: DataTypes.INTEGER },
             product_id : { type: DataTypes.INTEGER },
-            rating : { type: DataTypes.INTEGER },
+            rating : { type: DataTypes.FLOAT },
             comment : { type: DataTypes.CHAR },
             img_link : { type: DataTypes.CHAR},
         },
