@@ -209,6 +209,47 @@ exports.post_recent_carts = (req, res) => {
 
 }
 
+exports.post_recent_carts_items = (req, res) => {
+    
+    console.log('1')
+    models.carts.findAll({
+        attributes: ['cart_id'],
+        where: {
+            customer_id: req.body.customer_id,
+            cart_status: req.body.cart_status
+        }
+    }).then((cart)=>{
+            console.log(new Date(new Date() - 24 * 60 * 60 * 3000))
+            models.cart_items.findAll({
+                
+                where:{
+                    [Sequelize.Op.or]: JSON.parse(JSON.stringify(cart)),
+                    quantity: {
+                        [Sequelize.Op.ne]: 0
+                    },
+                    updatedAt: {
+                        [Sequelize.Op.lt]: new Date(),
+                        [Sequelize.Op.gt]: new Date(new Date() - 24 * 60 * 60 * 3000)
+                        
+                    }
+                }
+            }).then((result)=>{
+                
+                res.json({
+                    message: 'success',
+                    result
+                });
+            })       
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+
+}
+
 exports.get_one_carts = (req, res) => {
     models.coupons.findAll({
         where: {
