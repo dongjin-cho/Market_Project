@@ -390,7 +390,7 @@ exports.post_cart_items = (req, res) => {
             console.log('body =' + req.body);
             res.json({
                 message: 'success',
-                result: amount + 1
+                result: req.body
             });
         });
     }).catch(err => {
