@@ -386,11 +386,11 @@ exports.post_cart_items = (req, res) => {
 
     console.log('body =' + req.body);
     models.cart_items.count().then(amount => {
-        models.cart_items.create(req.body).then(() => {
+        models.cart_items.create(req.body).then((lastone) => {
             console.log('body =' + req.body);
             res.json({
                 message: 'success',
-                result: req.body
+                result: lastone
             });
         });
     }).catch(err => {
@@ -399,7 +399,7 @@ exports.post_cart_items = (req, res) => {
         res.json({
             message: 'fail'
         })
-    });;
+    });
 }
 exports.get_cart_items_edit = (req, res) => {
     models.cart_items.findByPk(req.params.id).then((result) => {
