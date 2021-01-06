@@ -1331,6 +1331,77 @@ exports.post_coupons_edit = (req, res) => {
     });
 }
 
+
+// inventories
+
+exports.get_inventories = (_, res) => {
+    models.inventories.findAll({}).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    }); // 이곳으로 productList보내기
+}
+
+exports.post_inventories = (req, res) => {
+    models.inventories.create(req.body).then(() => {
+        console.log('body =' + req.body);
+        res.json({
+            message: 'success',
+            result: req.body
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+exports.get_inventories_edit = (req, res) => {
+    models.inventories.findByPk(req.params.id).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+
+exports.post_inventories_edit = (req, res) => {
+    models.inventories.update({
+        //data
+        product_id: req.body.product_id,
+        quantity: req.body.quantity,
+    }, {
+        //condition
+        where: {
+            inventory_id: req.params.id
+        }
+    }).then(() => {
+        res.json({
+            message: 'success',
+            result: req.body
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+
 exports.get_coupon_customer = (req, res) => {
     models.coupons.findAll({
         where: {
