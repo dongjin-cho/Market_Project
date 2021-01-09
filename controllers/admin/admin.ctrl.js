@@ -499,19 +499,75 @@ exports.get_purchases = (_, res) => {
 exports.post_purchases = (req, res) => {
 
     console.log('body =' + req.body);
-    models.purchases.create(req.body).then(() => {
-        console.log('body =' + req.body);
+    models.purchases.create(req.body).then((result) => {
+        
+        models.carts.update({
+            cart_status: 1
+        }, {
+            where: {
+                cart_id: req.body.cart_id
+            }
+        }).then(() => {
+
+            console.log('carts update success')
+
+            /* res.json({
+                message: 'success',
+                result: req.body.cart_id
+            }); */
+        }).catch(err => {
+            console.log('carts update fail')
+            console.err(err)
+            res.json({
+                message: 'fail',
+                result: 'carts update fail'
+            })
+        });
+        
+        models.cart_items.findAll({
+            raw: true,
+            attributes: ['product_id', 'quantity'],
+            where:{
+                cart_id: req.body.cart_id
+            }
+        }).then((product)=>{
+            models.inventories.findAll({
+                raw: true,
+                attributes: ['quantity'],
+                where:{
+                    product_id: product[0]['product_id']
+                }
+            }).then((result)=>{
+                models.inventories.update({
+                    quantity: result[0]['quantity'] - product[0]['quantity']
+                }, {
+                    where: {
+                        product_id: product[0]['product_id']
+                    }
+                })
+            }).then(()=>{
+                console.log('product update success')
+            })
+        }).catch(err => {
+            console.log('product update fail')
+            
+            res.json({
+                message: 'fail',
+                result: 'product update fail'
+            })
+        })
+        
         res.json({
             message: 'success',
             result: req.body.cart_id
-        });
+        })
     }).catch(err => {
 
         console.error(err);
         res.json({
             message: 'fail'
         })
-    });;
+    });
 }
 exports.get_purchases_edit = (req, res) => {
     models.purchases.findByPk(req.params.id).then((result) => {
