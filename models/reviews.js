@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     reviews.associate = function (db){
         reviews.belongsTo(db.customers, 
             {foreignKey: 'customer_id', sourceKey:'customer_id'})
-        reviews.belongsTo(db.products, 
-            {foreignKey: 'product_id', sourceKey:'product_id'})
+       /*  reviews.belongsTo(db.products, 
+            {foreignKey: 'product_id', sourceKey:'product_id'}) */
         
     };
     
