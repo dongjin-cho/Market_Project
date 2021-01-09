@@ -1711,6 +1711,79 @@ exports.post_admin_customers_edit = (req, res) => {
     })
 }
 
+// inventories
+exports.get_admin_inventories = (_, res) => {
+    models.inventories.findAll({
+
+    }).then((inventories) => {
+        res.render('admin/inventories.html', {
+            inventories: inventories
+        })
+    }) // 이곳으로 productList보내기
+}
+
+exports.get_admin_inventories_write = (_, res) => {
+    res.render('admin/inventory_write.html');
+}
+
+exports.post_admin_inventories_write = (req, res) => {
+    console.log(req.body);
+    // insert하는 두가지 방법
+    models.inventories.create({
+        
+        quantity: req.body.quantity,
+        product_id: req.body.product_id
+    }).then(() => {
+        res.redirect('/admin/admin_inventories');
+    });
+}
+
+exports.get_admin_inventories_detail = (req, res) => {
+    models.inventories.findByPk(req.params.id).then((inventory) => {
+        //res.send(product);
+        res.render('admin/inventory_detail.html', {
+            inventory: inventory
+        });
+    });
+};
+
+exports.get_admin_inventories_delete = (req, res) => {
+    console.log('delete function')
+    models.inventories.destroy({
+        where: {
+            inventory_id: req.params.id
+        }
+    }).then(() => {
+        res.redirect('/admin/admin_inventories')
+    })
+}
+
+exports.get_admin_inventories_edit = (req, res) => {
+    models.inventories.findByPk(req.params.id).then((inventory) => {
+        res.render('admin/inventory_write.html', {
+            inventory
+        })
+    })
+}
+
+exports.post_admin_inventories_edit = (req, res) => {
+
+    models.inventories.update({
+        //data
+        
+        quantity: req.body.quantity,
+        product_id: req.body.product_id
+    }, {
+        //condition
+        where: {
+            inventory_id: req.params.id
+        }
+    }).then(() => {
+        res.redirect('/admin/admin_inventories/detail/' + req.params.id);
+    })
+}
+
+
 //login
 
 exports.post_login = (req, res) => {

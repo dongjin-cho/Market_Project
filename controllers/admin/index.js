@@ -179,6 +179,16 @@ router.get('/admin_customers/edit/:id', ctrl.get_admin_customers_edit );
 router.post('/admin_customers/edit/:id', ctrl.post_admin_customers_edit );
 router.get('/admin_customers/delete/:id', ctrl.get_admin_customers_delete );
 
+//inventories
+
+router.get('/admin_inventories', ctrl.get_admin_inventories);
+router.get('/admin_inventories_write', ctrl.get_admin_inventories_write);
+router.post('/admin_inventories_write', ctrl.post_admin_inventories_write);
+router.get('/admin_inventories/detail/:id', ctrl.get_admin_inventories_detail );
+router.get('/admin_inventories/edit/:id', ctrl.get_admin_inventories_edit );
+router.post('/admin_inventories/edit/:id', ctrl.post_admin_inventories_edit );
+router.get('/admin_inventories/delete/:id', ctrl.get_admin_inventories_delete );
+
 // login구현
 
 router.post('/login', ctrl.post_login);
