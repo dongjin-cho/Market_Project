@@ -150,6 +150,7 @@ router.get('/inventories', verify_token, ctrl.get_inventories);
 router.post('/inventories', verify_token, ctrl.post_inventories);
 router.get('/inventories/:id', verify_token, ctrl.get_inventories_edit);
 router.post('/inventories/:id', verify_token, ctrl.post_inventories_edit);
+router.get('/inventories_product/:id', verify_token, ctrl.get_inventories_product);
 
 //sns_id 구현
 router.get('/customers/sns_id/:id', verify_token, ctrl.get_customers_sns_edit);

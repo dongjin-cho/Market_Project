@@ -1458,6 +1458,26 @@ exports.post_inventories_edit = (req, res) => {
     });
 }
 
+exports.get_inventories_product = (req, res) => {
+    models.inventories.findAll({
+        where: {
+            product_id: req.params.id
+        }
+    }).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+
+
 exports.get_coupon_customer = (req, res) => {
     models.coupons.findAll({
         where: {
