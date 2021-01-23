@@ -1631,7 +1631,8 @@ exports.post_admin_products_write = (req, res) => {
         measure_2: req.body.measure_2,
         storage_desc: req.body.storage_desc,
         recipe: req.body.recipe,
-        nutrition: req.body.nutrition
+        nutrition: req.body.nutrition,
+        description_img_path: req.body.description_img_path
     }).then(() => {
         res.redirect('/admin/admin_products');
     });

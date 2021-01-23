@@ -23,6 +23,7 @@
             <th>storage_desc</th>
             <th>recipe</th>
             <th>nutrition</th>
+            <th>description_img_path</th>
             <th></th>
         </tr>
 
@@ -50,6 +51,7 @@
             <td style="word-break:break-all;" height="auto"> {{ product.storage_desc }}</td>
             <td style="word-break:break-all;" height="auto"> {{ product.recipe }}</td>
             <td style="word-break:break-all;" height="auto"> {{ product.nutrition }}</td>
+            <td style="word-break:break-all;" height="auto"> {{ product.description_img_path }}</td>
             <td style="word-break:break-all;" height="auto">
                 <a href="/admin/admin_products/delete/{{product.product_id}}" 
                 class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
