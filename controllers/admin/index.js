@@ -164,8 +164,8 @@ router.get('/img_product/:filename', ctrl.get_img_product);
 
 // address map
 
-router.get("/kaka/:lat/:long", ctrl.get_address_map);
-
+//router.get("/kaka/:lat/:long", ctrl.get_address_map);
+router.get("/kakao/:lat/:long", ctrl.get_address_map_kakao);
 // streaming url
 router.get('/streaming', ctrl.get_streaming);
 
