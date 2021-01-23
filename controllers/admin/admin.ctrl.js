@@ -686,11 +686,21 @@ exports.post_products_edit = (req, res) => {
         //data
         category: req.body.category,
         name: req.body.name,
-        provider_id: req.body.provider_id,
         retail_price: req.body.retail_price,
         location: req.body.location,
         description: req.body.description,
         img_path: req.body.img_path,
+        provider_id: req.body.provider_id,
+        sku: req.body.sku,
+        name_eng: req.body.name_eng,
+        type: req.body.type,
+        intro: req.body.intro,
+        measure_1: req.body.measure_1,
+        measure_2: req.body.measure_2,
+        storage_desc: req.body.storage_desc,
+        recipe: req.body.recipe,
+        nutrition: req.body.nutrition,
+        desciption_img_path: req.body.description_img_path
     }, {
         //condition
         where: {
