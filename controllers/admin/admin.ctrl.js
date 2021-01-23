@@ -1521,21 +1521,52 @@ exports.get_customers_sns_edit = (req, res) => {
 // cart_items table
 exports.get_img = (req, res) => {
 
-    fs.readFile("controllers/admin/onion.jpeg", function (err, data) {
+    fs.readFile("controllers/admin/onion.jpeg", function(err, data){
+        res.writeHead(200, { "Context-Type": "image/jpg" });
+        //res.write(data);
+        res.end(data); //클라이언트에게 응답을 전송한다
+
+    })
+}
+
+exports.get_img_thumbs = (req, res) => {
+
+    fs.readFile("controllers/admin/img/thumb/"+req.params.filename, function (err, data) {
+        console.log(req.params.filename)
+        
         res.writeHead(200, {
             "Context-Type": "image/jpg"
         });
         res.end(data); //클라이언트에게 응답을 전송한다
 
-    }).catch(err => {
-
-        console.error(err);
-        res.json({
-            message: 'fail'
-        })
-    });
+    })
 }
 
+exports.get_img_detailpage_upload = (req, res) => {
+
+    fs.readFile("controllers/admin/img/detailpage_upload/"+req.params.filename, function (err, data) {
+        console.log(req.params.filename)
+        
+        res.writeHead(200, {
+            "Context-Type": "image/jpg"
+        });
+        res.end(data); //클라이언트에게 응답을 전송한다
+
+    })
+}
+
+exports.get_img_product = (req, res) => {
+
+    fs.readFile("controllers/admin/img/product/"+req.params.filename, function (err, data) {
+        console.log(req.params.filename)
+        
+        res.writeHead(200, {
+            "Context-Type": "image/jpg"
+        });
+        res.end(data); //클라이언트에게 응답을 전송한다
+
+    })
+}
 // get streming
 exports.get_streaming = (req, res) => {
     //res.sendFile("controllers/aadmin/streaming/testStreaming/streaming.html")

@@ -158,6 +158,11 @@ router.get('/customers/sns_id/:id', verify_token, ctrl.get_customers_sns_edit);
 //image 전송
 router.get('/img', ctrl.get_img);
 
+router.get('/img_thumbs/:filename', ctrl.get_img_thumbs);
+router.get('/img_detailpage_upload/:filename', ctrl.get_img_detailpage_upload);
+router.get('/img_product/:filename', ctrl.get_img_product);
+
+
 // streaming url
 router.get('/streaming', ctrl.get_streaming);
 
