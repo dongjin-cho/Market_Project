@@ -169,11 +169,11 @@ router.get("/kakao/:lat/:long", ctrl.get_address_map_kakao);
 router.get('/streaming', ctrl.get_streaming);
 
 //sensor
-router.get('/sensors', verify_token, ctrl.get_sensors);
-router.post('/sensors', verify_token, ctrl.post_sensors);
+router.get('/sensors',ctrl.get_sensors);
+router.post('/sensors',ctrl.post_sensors);
 
 // admin apge
-//products
+//productss
 router.get('/admin_products', ctrl.get_admin_products);
 router.get('/admin_products_write', ctrl.get_admin_products_write);
 router.post('/admin_products_write', ctrl.post_admin_products_write);

@@ -1546,7 +1546,7 @@ exports.get_sensors = (_, res) => {
 }
 
 exports.post_sensors = (req, res) => {
-
+    console.log('post try')
     console.log('body =' + req.body);
     models.sensor_datas.create(req.body).then(() => {
         console.log('body =' + req.body);
