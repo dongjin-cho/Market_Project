@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             recipe : { type: DataTypes.CHAR },
             nutrition : { type: DataTypes.CHAR },
             description_img_path : { type: DataTypes.CHAR },
+            thumb_img_path : { type: DataTypes.CHAR },
         } 
     );
     products.associate = function (db){
