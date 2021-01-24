@@ -1602,7 +1602,7 @@ exports.get_img_detailpage_upload = (req, res) => {
 
 exports.get_img_product = (req, res) => {
 
-    fs.readFile("controllers/admin/img/product/"+req.params.filename, function (err, data) {
+    fs.readFile("controllers/admin/img/products/"+req.params.filename, function (err, data) {
         console.log(req.params.filename)
         
         res.writeHead(200, {
