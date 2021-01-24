@@ -83,7 +83,7 @@ router.post('/cart_items/:id', verify_token, ctrl.post_cart_items_edit);
 
 // cart_id, product_id로 cart_item_id return
 router.get('/cart_items/:cart_id/:product_id', verify_token, ctrl.get_cart_items_cartid_productid);
-router.get('/cart_items_cart/:cart_id', verify_token, ctrl.get_cart_items_cartid);
+router.get('/cart_items_cart/:cart_id', ctrl.get_cart_items_cartid);
 
 router.get('/purchases', verify_token, ctrl.get_purchases);
 router.post('/purchases', verify_token, ctrl.post_purchases);

@@ -462,6 +462,7 @@ exports.get_cart_items_cartid_productid = (req, res) => {
 }
 
 exports.get_cart_items_cartid = (req, res) => {
+    console.log('get_cart_items_cartidget_cart_items_cartid')
     models.cart_items.findAll({
         where: {
             cart_id: req.params.cart_id
