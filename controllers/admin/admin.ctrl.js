@@ -1528,6 +1528,41 @@ exports.get_customers_sns_edit = (req, res) => {
     });
 }
 
+// sensors
+
+
+exports.get_sensors = (_, res) => {
+    models.sensor_datas.findAll({}).then((result) => {
+        res.json({
+            message: 'success',
+            result
+        });
+    }).catch(err => {
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    }); // 이곳으로 productList보내기
+}
+
+exports.post_sensors = (req, res) => {
+
+    console.log('body =' + req.body);
+    models.sensor_datas.create(req.body).then(() => {
+        console.log('body =' + req.body);
+        res.json({
+            message: 'success',
+            result: req.body
+        });
+    }).catch(err => {
+
+        console.error(err);
+        res.json({
+            message: 'fail'
+        })
+    });
+}
+
 // cart_items table
 exports.get_img = (req, res) => {
 
