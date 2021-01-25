@@ -1614,6 +1614,20 @@ exports.get_img_product = (req, res) => {
     })
 }
 
+exports.get_img_description = (req, res) => {
+
+    fs.readFile("controllers/admin/img/description/"+req.params.filename, function (err, data) {
+        console.log(req.params.filename)
+        
+        res.writeHead(200, {
+            "Context-Type": "image/jpg"
+        });
+        res.end(data); //클라이언트에게 응답을 전송한다
+
+    })
+}
+
+
 // get address map
 
 exports.get_address_map_kakao = (req, res) => {

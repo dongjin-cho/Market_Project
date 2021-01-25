@@ -161,6 +161,7 @@ router.get('/img', ctrl.get_img);
 router.get('/img_thumbs/:filename', ctrl.get_img_thumbs);
 router.get('/img_detailpage_upload/:filename', ctrl.get_img_detailpage_upload);
 router.get('/img_product/:filename', ctrl.get_img_product);
+router.get('/img_description/:filename', ctrl.get_img_description);
 
 // address map
 //router.get("/kaka/:lat/:long", ctrl.get_address_map);
