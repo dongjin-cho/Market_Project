@@ -94,10 +94,10 @@ router.post('/purchases/:id', verify_token, ctrl.post_purchases_edit);
 router.get('/purchases/customer/:customer_id', verify_token, ctrl.get_purchases_customer);
 
 
-router.get('/products', verify_token, ctrl.get_products);
-router.post('/products', verify_token, ctrl.post_products);
-router.get('/products/:id', verify_token, ctrl.get_products_edit);
-router.post('/products/:id', verify_token, ctrl.post_products_edit);
+router.get('/products',  ctrl.get_products);
+router.post('/products',  ctrl.post_products);
+router.get('/products/:id',  ctrl.get_products_edit);
+router.post('/products/:id',  ctrl.post_products_edit);
 
 router.get('/notification_infos', verify_token, ctrl.get_notification_infos);
 router.post('/notification_infos', verify_token, ctrl.post_notification_infos);
