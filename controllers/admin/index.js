@@ -6,28 +6,8 @@ const ctrl = require('./admin.ctrl');
 const jwt = require("jsonwebtoken");
 const secretObj = process.env.JWT_SECRET
 
-// function verify_token(req, res, next) {
-//     const token = req.cookies.customer_t;
-    
-//     if (!token) {
-//         return res.json({
-//             message: 'fail'
-//         })
-//     }
-
-//     jwt.verify(token, secretObj, (err, decoded) => {
-   
-//         if (!decoded) {
-//             return res.json({
-//                 message: 'fail',
-//                 err: err
-//             })
-//         }
-//     })
-//     next();
-// }
 function verify_token(req, res, next) {
-    const token = req.headers.customer_t;
+    const token = req.cookies.customer_t;
     
     if (!token) {
         return res.json({
@@ -46,6 +26,26 @@ function verify_token(req, res, next) {
     })
     next();
 }
+// function verify_token(req, res, next) {
+//     const token = req.headers.customer_t;
+    
+//     if (!token) {
+//         return res.json({
+//             message: 'empty token fail'
+//         })
+//     }
+
+//     jwt.verify(token, secretObj, (err, decoded) => {
+   
+//         if (!decoded) {
+//             return res.json({
+//                 message: 'token error fail',
+//                 err: err
+//             })
+//         }
+//     })
+//     next();
+//}
 function testMiddleWare2(req, res, next) {
     console.log('두번째 미들웨어');
     next();

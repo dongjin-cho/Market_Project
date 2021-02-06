@@ -1927,6 +1927,7 @@ exports.post_login = (req, res) => {
         }
     }).then((result) => {
         res.cookie('customer_t', token);
+        res.header('customer_t', token);
         if (result) {
             console.log('sns_id is duplicated')
             res.json({
