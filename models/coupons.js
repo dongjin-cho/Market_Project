@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
             expire_date : { type: DataTypes.DATE},
             coupon_num : { type: DataTypes.CHAR},
             description : { type: DataTypes.CHAR},
+            used : { type: DataTypes.INTEGER },
         },
         
     );
