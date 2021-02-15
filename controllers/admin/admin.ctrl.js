@@ -708,37 +708,41 @@ exports.postPurchases = async (req, res) => {
 //     });
 // };
 exports.getPurchasedProducts = async (req, res) => {
-  let purchasedProductList = [];
   try {
+    let purchasedLogWithProductsList = [];
     let data = await db.purchases.findAll({
       where: {
         customer_id: req.params.id,
       },
     });
-    // console.log(data);
     for (const log of data) {
+      console.log(log);
+      let purchasedLogWithProducts = Object.create(log);
+      if (purchasedLogWithProducts.purchase_status === null) {
+        continue;
+      }
+
       const cart_item = await db.cart_items.findAll({
         where: {
           cart_id: log.dataValues.cart_id,
         },
       });
-      //   console.log(cart_item);
+      let productList = [];
       cart_item.forEach((element) => {
         let purchasedProduct = {};
-        purchasedProduct.order_timestamp = log.dataValues.order_timestamp;
-        purchasedProduct.purchase_status = log.dataValues.purchase_status;
         purchasedProduct.product_id = element.dataValues.product_id;
         purchasedProduct.quantity = element.dataValues.quantity;
         if (element.dataValues.quantity != 0)
-          purchasedProductList.push(purchasedProduct);
+          productList.push(purchasedProduct);
       });
+      console.log(productList);
+      purchasedLogWithProducts.dataValues["product_list"] = productList;
+
+      purchasedLogWithProductsList.push(purchasedLogWithProducts);
     }
-    purchasedProductList = purchasedProductList.filter((element) => {
-      if (element.purchase_status != null) return element;
-    });
     res.json({
       message: "success",
-      result: purchasedProductList,
+      result: purchasedLogWithProductsList,
     });
   } catch (error) {
     console.log(error);
