@@ -1923,8 +1923,10 @@ exports.get_customers_sns_edit = (req, res) => {
 //return version
 exports.get_ret_v = (req, res) => {
     
-    res.set('Content-Type', 'text/plain')
-    res.send("1.0.5")     
+    res.json({
+        message: "success",
+        minversion: "1.0.5",
+      });     
 };
   
 // sensors
