@@ -1813,6 +1813,90 @@ exports.get_coupon_customer = (req, res) => {
     });
 };
 
+// coupons
+
+exports.get_temp_promos = (_, res) => {
+    models.temp_promos
+      .findAll({})
+      .then((result) => {
+        res.json({
+          message: "success",
+          result,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        res.json({
+          message: "fail",
+        });
+      }); // 이곳으로 productList보내기
+  };
+  
+  exports.post_temp_promos = (req, res) => {
+    console.log("body =" + req.body);
+    models.temp_promos
+      .create(req.body)
+      .then(() => {
+        console.log("body =" + req.body);
+        res.json({
+          message: "success",
+          result: req.body,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        res.json({
+          message: "fail",
+        });
+      });
+  };
+  exports.get_temp_promos_edit = (req, res) => {
+    models.temp_promos
+      .findByPk(req.params.id)
+      .then((result) => {
+        res.json({
+          message: "success",
+          result,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        res.json({
+          message: "fail",
+        });
+      });
+  };
+  
+  exports.post_temp_promos_edit = (req, res) => {
+    models.temp_promos
+      .update(
+        {
+          //data
+          temp_promo_id: req.body.temp_promo_id,
+          promo_num: req.body.promo_num,
+          used: req.body.used,
+        },
+        {
+          //condition
+          where: {
+            temp_promo_id: req.params.id,
+          },
+        }
+      )
+      .then(() => {
+        res.json({
+          message: "success",
+          result: req.body,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        res.json({
+          message: "fail",
+        });
+      });
+  };
+
 // sns_id
 
 exports.get_customers_sns_edit = (req, res) => {
@@ -1836,6 +1920,13 @@ exports.get_customers_sns_edit = (req, res) => {
     });
 };
 
+//return version
+exports.get_ret_v = (req, res) => {
+    
+    res.set('Content-Type', 'text/plain')
+    res.send("1.0.5")     
+};
+  
 // sensors
 
 exports.get_sensors = (_, res) => {
