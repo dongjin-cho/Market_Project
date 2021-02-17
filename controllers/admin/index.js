@@ -95,6 +95,7 @@ router
   .post(ctrl.post_products_edit);
 //version return
 router.get("/ret_v", ctrl.get_ret_v);
+router.post("/temp_promos_create",  ctrl.post_temp_promos_create);
 //Below function should be secured by JWT token
 //TEST token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzbnNfaWQiOiIxNTQzOTM4MTg4IiwiaWF0IjoxNjEyNDAzMzY3LCJleHAiOjE2OTg4MDMzNjd9.ZY2Ss_TnubFNuun_Q7t04_YLpCP11zMyq7ZPLdpCQNQ
 router.use(verify_token);
@@ -244,6 +245,7 @@ router.get("/temp_promos", verify_token, ctrl.get_temp_promos);
 router.post("/temp_promos", verify_token, ctrl.post_temp_promos);
 router.get("/temp_promos/:id", verify_token, ctrl.get_temp_promos_edit);
 router.post("/temp_promos/:id", verify_token, ctrl.post_temp_promos_edit);
+
 
 //sns_id 구현
 router.get("/customers/sns_id/:id", verify_token, ctrl.get_customers_sns_edit);

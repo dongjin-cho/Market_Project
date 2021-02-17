@@ -1867,6 +1867,61 @@ exports.get_temp_promos = (_, res) => {
       });
   };
   
+  exports.post_temp_promos_create = (req, res) => {
+      
+    models.temp_promos.findOne({
+        where: {
+            promo_num: req.body.promo_num,
+            used: 0
+        },
+      }).then(()=>{
+        models.coupons
+          .create({
+            customer_id: req.body.customer_id,
+            type: 1,
+            value: 10000.0,
+            expire_date: "9999/12/31",
+            coupon_num: req.body.promo_num,
+            description: "",
+            used: 0,
+          })
+          .then(() => {
+            console.log("body =" + req.body);
+            
+          })
+          .catch((err) => {
+            console.error(err);
+            res.json({
+              message: "fail",
+            });
+          });
+          models.temp_promos
+          .update(
+            {
+              used: 1,
+            },
+            {
+              //condition
+              where: {
+                promo_num: req.body.promo_num,
+              },
+            }
+          )
+          .then((result) => {
+            res.json({
+              message: "success",
+              result: result,
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+            res.json({
+              message: "fail",
+            });
+          });
+      })
+  };
+
   exports.post_temp_promos_edit = (req, res) => {
     models.temp_promos
       .update(
@@ -1896,7 +1951,6 @@ exports.get_temp_promos = (_, res) => {
         });
       });
   };
-
 // sns_id
 
 exports.get_customers_sns_edit = (req, res) => {
