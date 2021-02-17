@@ -1662,11 +1662,7 @@ exports.post_coupons_edit = (req, res) => {
   models.coupons
     .update(
       {
-        //data
-        customer_id: req.body.customer_id,
-        type: req.body.type,
-        value: req.body.value,
-        expire_date: req.body.expire_date,
+        used: 1,
       },
       {
         //condition
