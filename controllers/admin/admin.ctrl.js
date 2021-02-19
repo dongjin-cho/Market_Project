@@ -899,6 +899,7 @@ exports.post_products_edit = (req, res) => {
         recipe: req.body.recipe,
         nutrition: req.body.nutrition,
         desciption_img_path: req.body.description_img_path,
+        weights: req.body.weights,
       },
       {
         //condition
