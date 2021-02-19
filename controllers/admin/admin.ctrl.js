@@ -1872,8 +1872,7 @@ exports.get_temp_promos = (_, res) => {
             used: 0
         },
       }).then(()=>{
-        models.coupons
-          .create({
+        models.coupons.create({
             customer_id: req.body.customer_id,
             type: 1,
             value: 10000.0,
@@ -1881,24 +1880,18 @@ exports.get_temp_promos = (_, res) => {
             coupon_num: req.body.promo_num,
             description: "",
             used: 0,
-          })
-          .then(() => {
-            console.log("body =" + req.body);
-            
-          })
-          .catch((err) => {
+          }).then(() => {
+            console.log("body =" + req.body); 
+          }).catch((err) => {
             console.error(err);
             res.json({
               message: "fail",
             });
           });
-          models.temp_promos
-          .update(
-            {
+
+          models.temp_promosx.update({
               used: 1,
-            },
-            {
-              //condition
+            },{
               where: {
                 promo_num: req.body.promo_num,
               },
@@ -1916,7 +1909,13 @@ exports.get_temp_promos = (_, res) => {
               message: "fail",
             });
           });
-      })
+      }).catch((err) => {
+        console.error(err);
+        res.json({
+          message: "fail",
+          result: "wrong num"
+        });
+      });
   };
 
   exports.post_temp_promos_edit = (req, res) => {
