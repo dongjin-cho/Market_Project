@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
             nutrition : { type: DataTypes.CHAR },
             description_img_path : { type: DataTypes.CHAR },
             thumb_img_path : { type: DataTypes.CHAR },
+            weights : { type: DataTypes.CHAR },
         } 
     );
     products.associate = function (db){
