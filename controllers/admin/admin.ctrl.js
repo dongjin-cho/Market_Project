@@ -1675,7 +1675,7 @@ exports.post_coupons_edit = (req, res) => {
     .then(() => {
       res.json({
         message: "success",
-        result: req.body,
+        result: req.params.id,
       });
     })
     .catch((err) => {
@@ -1871,49 +1871,57 @@ exports.get_temp_promos = (_, res) => {
             promo_num: req.body.promo_num,
             used: 0
         },
-      }).then(()=>{
-        models.coupons.create({
-            customer_id: req.body.customer_id,
-            type: 1,
-            value: 10000.0,
-            expire_date: "9999/12/31",
-            coupon_num: req.body.promo_num,
-            description: "",
-            used: 0,
-          }).then(() => {
-            console.log("body =" + req.body); 
-          }).catch((err) => {
-            console.error(err);
-            res.json({
-              message: "fail",
+      }).then((promo)=>{
+          if (promo != null){
+              models.coupons.create({
+                customer_id: req.body.customer_id,
+                type: 1,
+                value: 10000.0,
+                expire_date: "9999/12/31",
+                coupon_num: req.body.promo_num,
+                description: "",
+                used: 0,
+                }).then(() => {
+                console.log("body =" + req.body); 
+            }).catch((err) => {
+                console.error(err);
+                res.json({
+                message: "fail",
+                });
             });
-          });
 
-          models.temp_promosx.update({
-              used: 1,
-            },{
-              where: {
-                promo_num: req.body.promo_num,
-              },
+            models.temp_promos.update({
+                used: 1,
+                },{
+                where: {
+                    promo_num: req.body.promo_num,
+                },
+                }
+            )
+            .then((result) => {
+                res.json({
+                message: "success",
+                result: result,
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+                res.json({
+                message: "fail",
+                });
+            });
             }
-          )
-          .then((result) => {
+         else {
             res.json({
-              message: "success",
-              result: result,
-            });
-          })
-          .catch((err) => {
-            console.error(err);
-            res.json({
-              message: "fail",
-            });
-          });
+                message: "fail",
+                 result: "wrong num"
+              });
+         }
       }).catch((err) => {
         console.error(err);
         res.json({
           message: "fail",
-          result: "wrong num"
+          result: "wrong num2"
         });
       });
   };
