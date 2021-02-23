@@ -1978,6 +1978,41 @@ exports.get_customers_sns_edit = (req, res) => {
     });
 };
 
+// version check
+
+exports.get_version_check = (req, res) => {
+    
+    const maxVersion = "1.0"
+    models.customer_logs
+      .findOne({
+        attributes: ["appversion"],
+        where: {
+          customer_id: req.params.id,
+        },
+      })
+      .then((result) => {
+        console.log(result)
+        console.log(result.appversion)
+          if ( result.appversion == maxVersion ){
+            res.json({
+                message: "success",
+                result: "maxVersion"
+              });
+          } else {
+            res.json({
+                message: "fail",
+                result: "not maxVersion"
+              });
+          }
+        
+      })
+      .catch((err) => {
+        console.error(err);
+        res.json({
+          message: "fail",
+        });
+      });
+  };
 //return version
 exports.get_ret_v = (req, res) => {
     

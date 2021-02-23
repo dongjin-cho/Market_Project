@@ -250,7 +250,8 @@ router.post("/temp_promos/:id", verify_token, ctrl.post_temp_promos_edit);
 //sns_id 구현
 router.get("/customers/sns_id/:id", verify_token, ctrl.get_customers_sns_edit);
 
-
+// version 확인
+router.get("/version_check/:id", verify_token, ctrl.get_version_check);
 
 // loading
 module.exports = router;
