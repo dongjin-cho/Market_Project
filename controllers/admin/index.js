@@ -66,7 +66,6 @@ router.post("/admin_customers/edit/:id", ctrl.post_admin_customers_edit);
 router.get("/admin_customers/delete/:id", ctrl.get_admin_customers_delete);
 
 //inventories
-
 router.get("/admin_inventories", ctrl.get_admin_inventories);
 router.get("/admin_inventories_write", ctrl.get_admin_inventories_write);
 router.post("/admin_inventories_write", ctrl.post_admin_inventories_write);
