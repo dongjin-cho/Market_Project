@@ -2423,6 +2423,63 @@ exports.post_admin_inventories_edit = (req, res) => {
     });
 };
 
+
+
+// orders
+exports.get_admin_orders = (_, res) => {
+    models.purchases.findAll({
+        include: [
+            {model: models.carts},
+            {model: models.customers}            
+          ]
+    }).then((purchases) => {
+      res.render("admin/orders.html", {
+        orders: purchases,
+      });
+    }); // 이곳으로 productList보내기
+  };
+  
+  // cart item detail
+exports.get_admin_cart_items_detail = (req, res) => {
+    models.cart_items.findAll({
+        include: [{
+            model: models.products,
+          }],
+        where: {
+            cart_id: req.params.id,
+        }
+    }).then((cart_items) => {
+      console.log(cart_items)
+      res.render("admin/cart_items_detail.html", {
+        cart_items: cart_items,
+      });
+    });
+  };
+  exports.get_admin_orders_write = (_, res) => {
+    
+  };
+  
+  exports.post_admin_orders_write = (req, res) => {
+    console.log(req.body);
+
+  };
+  
+  exports.get_admin_orders_detail = (req, res) => {
+
+  };
+  
+  exports.get_admin_orders_delete = (req, res) => {
+    console.log("delete function");
+
+  };
+  
+  exports.get_admin_orders_edit = (req, res) => {
+
+  };
+  
+  exports.post_admin_inventories_edit = (req, res) => {
+
+  };
 //login
 
 exports.post_login = (req, res) => {

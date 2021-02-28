@@ -74,6 +74,17 @@ router.get("/admin_inventories/edit/:id", ctrl.get_admin_inventories_edit);
 router.post("/admin_inventories/edit/:id", ctrl.post_admin_inventories_edit);
 router.get("/admin_inventories/delete/:id", ctrl.get_admin_inventories_delete);
 
+//orders
+router.get("/admin_orders", ctrl.get_admin_orders);
+router.get("/admin_cart_items/detail/:id", ctrl.get_admin_cart_items_detail);
+
+// router.get("/admin_orders_write", ctrl.get_admin_orders_write);
+// router.post("/admin_orders_write", ctrl.post_admin_orders_write);
+// router.get("/admin_orders/detail/:id", ctrl.get_admin_orders_detail);
+// router.get("/admin_orders/edit/:id", ctrl.get_admin_orders_edit);
+// router.post("/admin_orders/edit/:id", ctrl.post_admin_orders_edit);
+// router.get("/admin_orders/delete/:id", ctrl.get_admin_orders_delete);
+
 // future connect app API Route
 
 //route for login function.
