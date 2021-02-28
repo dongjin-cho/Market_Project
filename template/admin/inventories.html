@@ -7,6 +7,7 @@
             <th>inventory id</th>
             <th>qunatity</th>
             <th>product id</th>
+            <th>product name</th>
             <th></th>
         </tr>
         
@@ -18,6 +19,7 @@
             </a></td>
             <td>{{ inventory.quantity }}</td>
             <td>{{ inventory.product_id }}</td>
+            <td>{{ inventory.product.name }}</td>
             <td>
                 <a href="/admin/admin_inventories/delete/{{inventory.inventory_id}}" 
                 class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')">삭제</a>

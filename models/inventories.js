@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             inventory_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },            
             quantity : { type: DataTypes.INTEGER },
+            
         },
         
     );

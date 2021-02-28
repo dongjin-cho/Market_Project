@@ -4,6 +4,7 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const { decode } = require("punycode");
 const { Sequelize, sequelize } = require("../../models");
+const products = require("../../models/products");
 const secretObj = process.env.JWT_SECRET;
 // future coonect
 // customers table
@@ -2343,7 +2344,11 @@ exports.post_admin_customers_edit = (req, res) => {
 
 // inventories
 exports.get_admin_inventories = (_, res) => {
-  models.inventories.findAll({}).then((inventories) => {
+  models.inventories.findAll({
+      include: [{
+          model: models.products,
+        }]
+  }).then((inventories) => {
     res.render("admin/inventories.html", {
       inventories: inventories,
     });
