@@ -36,6 +36,10 @@ router.get("/img_detailpage_upload/:filename", ctrl.get_img_detailpage_upload);
 router.get("/img_product/:filename", ctrl.get_img_product);
 router.get("/img_description/:filename", ctrl.get_img_description);
 
+// app min version
+router.get("/appinfos", ctrl.get_appinfos);
+router.post("/appinfos", ctrl.post_appinfos);
+
 // address map
 //router.get("/kaka/:lat/:long", ctrl.get_address_map);
 router.get("/kakao/:lat/:long", ctrl.get_address_map_kakao);

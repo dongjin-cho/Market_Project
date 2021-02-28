@@ -2127,6 +2127,54 @@ exports.get_img_description = (req, res) => {
   );
 };
 
+// app min verstion
+
+// inventories
+
+exports.get_appinfos = (_, res) => {
+    models.appinfos
+      .findAll({})
+      .then((result) => {
+        res.json({
+          message: "success",
+          result,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        res.json({
+          message: "fail",
+        });
+      }); // 이곳으로 productList보내기
+  };
+  
+  exports.post_appinfos = (req, res) => {
+    models.appinfos
+    .update(
+        {
+          //data
+          min_version: req.body.min_version
+        },
+        {
+          //condition
+          where: {
+            id: 1,
+          },
+        }
+      )
+      .then(() => {
+        res.json({
+          message: "success",
+          result: req.body,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        res.json({
+          message: "fail",
+        });
+      });
+  };
 // get address map
 
 exports.get_address_map_kakao = (req, res) => {
