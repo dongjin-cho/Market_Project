@@ -2451,6 +2451,8 @@ exports.get_admin_inventories_edit = (req, res) => {
 };
 
 exports.post_admin_inventories_edit = (req, res) => {
+    console.log("ID: " + req.params.id);
+
   models.inventories
     .update(
       {
@@ -2525,9 +2527,7 @@ exports.get_admin_cart_items_detail = (req, res) => {
 
   };
   
-  exports.post_admin_inventories_edit = (req, res) => {
-
-  };
+  
 //login
 
 exports.post_login = (req, res) => {
